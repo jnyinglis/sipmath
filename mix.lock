@@ -1,0 +1,2 @@
+%{"pollution": {:git, "http://github.com/jnyinglis/pollution.git", "4e35c281c8356e88c71d3468a5f064a7f598a03f", []},
+  "quixir": {:git, "http://github.com/jnyinglis/quixir.git", "7ec6118ae32c5cb6717dc56eb0c1f6838bb23546", []}}
