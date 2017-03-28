@@ -1,4 +1,4 @@
-defmodule SIPmath.Uniform do
+defmodule SIPmath.Distribution.Uniform do
   @moduledoc """
   Implementation of Hubbard Decision Research uniform number generator
   """
