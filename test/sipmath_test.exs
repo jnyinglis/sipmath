@@ -2,6 +2,7 @@ defmodule SIPmathTest do
   use ExUnit.Case
   
   alias SIPmath.Uniform
+  alias SIPmath.State
 
   doctest SIPmath
 
@@ -10,8 +11,11 @@ defmodule SIPmathTest do
   end
 
   test "Uniform HDR: confirm random numbers" do
-    sv_id = 1
-    pm_index = 1
-    assert Uniform.next_value(sv_id, pm_index) == 0.37674033659358525
+    state =
+      %State{}
+      |> Map.put(:sv_id, 1)
+      |> Map.put(:pm_index, 1)
+
+    assert {0.37674033659358525, _state} = Uniform.next_value(state)
   end
 end
