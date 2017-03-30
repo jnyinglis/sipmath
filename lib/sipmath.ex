@@ -4,16 +4,26 @@ defmodule SIPmath do
   """
 
   @doc """
-  Hello world.
+  Supports the following distributions:
+
+  Uniform
+  Normal
+  Beta
 
   ## Examples
 
-      iex1> SIPmath.uniform("abc", 1)
-      :world
+      iex> uniform_dist =
+      ...>   with  name ="abc",
+      ...>         sv_id = 1 do
+      ...>     SIPmath.uniform(name, sv_id)
+      ...>     |> SIPmath.as_stream()
+      ...>     |> Enum.take(1)
+      ...>   end
+      [0.37674033659358525]
 
   """
 
-  alias SIPmath.Distribution.{Uniform, Beta}
+  alias SIPmath.Distribution.{Uniform, Beta, Normal}
   alias SIPmath.State
 
   @spec uniform(name :: String.t, sv_id :: integer) :: SIPmath.State.t
@@ -21,7 +31,12 @@ defmodule SIPmath do
     Uniform.create(name, sv_id)
   end
 
-  @spec beta(name :: String.t, sv_id :: integer, alpha :: integer, beta :: integer, a :: integer, b: integer) :: SIPmath.State.t
+  @spec normal(name :: String.t, sv_id :: integer, mean :: integer, std_dev :: integer) :: SIPmath.State.t
+  def normal(name, sv_id, mean, std_dev) do
+    Normal.create(name, sv_id, mean, std_dev)
+  end
+
+  @spec beta(name :: String.t, sv_id :: integer, alpha :: integer, beta :: integer, a :: integer, b:: integer) :: SIPmath.State.t
   def beta(name, sv_id, alpha, beta, a, b) do
     Beta.create(name, sv_id, alpha, beta, a, b)
   end

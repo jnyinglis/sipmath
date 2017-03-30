@@ -4,6 +4,7 @@ defmodule SIPmath.Distribution.Uniform do
   """
 
   alias SIPmath.State
+  alias SIPmath.Math
 
   @default_state %State{
       type:     __MODULE__,
@@ -35,25 +36,19 @@ defmodule SIPmath.Distribution.Uniform do
     with   sv_id = state.sv_id,
            pm_index = state.pm_index do
       value =
-        rem(
-          round(
+        Math.mod(
+          (
             (
               (
-                rem(
-                  round(
-                        :math.pow((sv_id + 1000000), 2) + (sv_id + 1000000) * (pm_index + 10000000)
-                  ), 99999989
-                )
+                Math.mod((:math.pow((sv_id + 1000000), 2) + (sv_id + 1000000) * (pm_index + 10000000)), 99999989)
               ) + 1000007
             )
             *
             (
               (
-                rem(
-                  round(
-                    :math.pow((pm_index + 10000000), 2) + (pm_index + 10000000) *
-                    (rem(round(:math.pow((sv_id + 1000000), 2) + (sv_id + 1000000) * (pm_index + 10000000)), 99999989 ))
-                  ), 99999989
+                Math.mod((:math.pow((pm_index + 10000000), 2) + (pm_index + 10000000) *
+                    (Math.mod((:math.pow((sv_id + 1000000), 2) + (sv_id + 1000000) * (pm_index + 10000000)), 99999989 ))
+                    ), 99999989
                 )
               ) + 1000013
             )
@@ -63,4 +58,5 @@ defmodule SIPmath.Distribution.Uniform do
       {value, state}
     end
   end
+
 end
