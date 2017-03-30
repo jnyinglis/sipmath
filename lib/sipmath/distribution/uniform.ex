@@ -5,7 +5,7 @@ defmodule SIPmath.Distribution.Uniform do
 
   alias SIPmath.State
 
-  @state %State{
+  @default_state %State{
       type:     __MODULE__,
       name:     nil,
       sv_id:    nil,
@@ -18,7 +18,7 @@ defmodule SIPmath.Distribution.Uniform do
 
   @spec create(name :: String.t, sv_id :: integer) :: SIPmath.State.t
   def create(name, sv_id) do
-    @state
+    @default_state
     |> Map.put(:name, name)
     |> Map.put(:sv_id, sv_id)
   end
@@ -30,7 +30,7 @@ defmodule SIPmath.Distribution.Uniform do
 
   Start variable id = 1
   """
-  @spec next_value(state :: SIPmath.State.t) :: {float, SIPmath.State.t}
+  @spec next_value(state :: SIPmath.State.t) :: State.t_next_value
   def next_value(state) do
     with   sv_id = state.sv_id,
            pm_index = state.pm_index do
@@ -63,12 +63,4 @@ defmodule SIPmath.Distribution.Uniform do
       {value, state}
     end
   end
-
-  @doc """
-  I think I need an initialize
-  """
-  defp initialize do
-
-  end
-
 end

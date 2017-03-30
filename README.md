@@ -1,6 +1,10 @@
-# Sipmath
+# SIPmath
 
-**TODO: Add description**
+Implement SIPmath functionality.
+
+Step 1 is to implement streaming distributions.
+
+I am taking inspiration (stealing) from Dave Thomas' Pollution project for streaming and factories.
 
 ## Installation
 
