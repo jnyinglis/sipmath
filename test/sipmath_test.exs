@@ -1,8 +1,7 @@
 defmodule SIPmathTest do
   use ExUnit.Case
   
-  alias SIPmath.Distribution.Uniform
-  alias SIPmath.Distribution.Beta
+  alias SIPmath
   alias SIPmath.State
 
   doctest SIPmath
@@ -12,21 +11,21 @@ defmodule SIPmathTest do
   end
 
   test "Uniform HDR: confirm random numbers" do
-    state =
-      %State{}
-      |> Map.put(:sv_id, 1)
-      |> Map.put(:pm_index, 1)
+    abc = SIPmath.uniform("abc", 1)
 
-    assert {0.37674033659358525, _state} = Uniform.next_value(state)
+    assert [0.37674033659358525] = abc |> SIPmath.as_stream() |> Enum.take(1)
   end
 
   test "Beta HDR: confirm first random number" do
-    alpha = 4
-    beta = 10
-    a = 1
-    b = 3
-    sv_id = 1
-    pm_index = 1
-    assert Beta.next_value(alpha, beta, a, b, sv_id, pm_index) == 1.46715
+    state =
+      %State{}
+      |> Map.put(:alpha, 4)
+      |> Map.put(:beta, 10)
+      |> Map.put(:a, 1)
+      |> Map.put(:b, 3)
+      |> Map.put(:sv_id, 1)
+      |> Map.put(:pm_index, 1)
+
+    assert {1.46715, _state} = Beta.next_value(state)
   end
 end

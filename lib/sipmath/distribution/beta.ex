@@ -7,8 +7,15 @@ defmodule SIPmath.Distribution.Beta do
 
   Start variable id = 1
   """
-  @spec next_value(alpha :: integer, beta :: integer, a :: integer, b :: integer, sv_id :: integer, pm_index :: integer) :: float
-  def next_value(alpha, beta, a, b, sv_id, pm_index) do
-    0
+  @spec next_value(state :: SIPmath.State.t) :: {float, SIPmath.State.t}
+  def next_value(state) do
+    with  alpha = state.alpha,
+          beta = state.beta,
+          a = state.a,
+          b = state.b,
+          sv_id = state.sv_id,
+          pm_index = state.pm_index do
+      0
+    end
   end
 end
