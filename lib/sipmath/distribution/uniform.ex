@@ -40,20 +40,20 @@ defmodule SIPmath.Distribution.Uniform do
           (
             (
               (
-                Math.mod((:math.pow((sv_id + 1000000), 2) + (sv_id + 1000000) * (pm_index + 10000000)), 99999989)
-              ) + 1000007
+                Math.mod((:math.pow((sv_id + 1_000_000), 2) + (sv_id + 1_000_000) * (pm_index + 10_000_000)), 99_999_989)
+              ) + 1_000_007
             )
             *
             (
               (
-                Math.mod((:math.pow((pm_index + 10000000), 2) + (pm_index + 10000000) *
-                    (Math.mod((:math.pow((sv_id + 1000000), 2) + (sv_id + 1000000) * (pm_index + 10000000)), 99999989 ))
-                    ), 99999989
+                Math.mod((:math.pow((pm_index + 10_000_000), 2) + (pm_index + 10_000_000) *
+                    (Math.mod((:math.pow((sv_id + 1_000_000), 2) + (sv_id + 1_000_000) * (pm_index + 10_000_000)), 99_999_989 ))
+                    ), 99_999_989
                 )
-              ) + 1000013
+              ) + 1_000_013
             )
-          ), 2147483647
-        ) / 2147483647
+          ), 2_147_483_647
+        ) / 2_147_483_647
         
       {value, state}
     end
