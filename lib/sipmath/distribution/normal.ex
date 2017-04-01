@@ -21,8 +21,8 @@ defmodule SIPmath.Distribution.Normal do
   I think I need a creator
   """
 
-  @spec create(name :: String.t, sv_id :: integer, mean :: integer, std_dev :: integer) :: SIPmath.State.t
-  def create(name, sv_id, mean, std_dev) do
+  @spec create(name :: binary, sv_id :: integer, mean :: integer, std_dev :: number) :: SIPmath.State.t
+  def create(name, sv_id, mean, std_dev) when is_binary(name) and is_integer(sv_id) and is_integer(mean) and is_number(std_dev) do
     @default_state
     |> Map.put(:name, name)
     |> Map.put(:sv_id, sv_id)

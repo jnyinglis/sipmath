@@ -18,7 +18,7 @@ defmodule SIPmath.Distribution.Uniform do
   """
 
   @spec create(name :: String.t, sv_id :: integer) :: SIPmath.State.t
-  def create(name, sv_id) do
+  def create(name, sv_id) when is_binary(name) and is_integer(sv_id) do
     @default_state
     |> Map.put(:name, name)
     |> Map.put(:sv_id, sv_id)
@@ -47,8 +47,8 @@ defmodule SIPmath.Distribution.Uniform do
             (
               (
                 Math.mod((:math.pow((pm_index + 10_000_000), 2) + (pm_index + 10_000_000) *
-                    (Math.mod((:math.pow((sv_id + 1_000_000), 2) + (sv_id + 1_000_000) * (pm_index + 10_000_000)), 99_999_989 ))
-                    ), 99_999_989
+                  (Math.mod((:math.pow((sv_id + 1_000_000), 2) + (sv_id + 1_000_000) * (pm_index + 10_000_000)), 99_999_989 ))
+                  ), 99_999_989
                 )
               ) + 1_000_013
             )

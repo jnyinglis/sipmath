@@ -30,7 +30,8 @@ defmodule Sipmath.Mixfile do
   defp deps do
     [
       {:quixir, git: "http://github.com/jnyinglis/quixir.git", override: true},
-      {:pollution, git: "http://github.com/jnyinglis/pollution.git", override: true}
+      {:pollution, git: "http://github.com/jnyinglis/pollution.git", override: true},
+      {:dialyxir, "~> 0.5", only: [:dev], runtime: false}
     ]
   end
 end
