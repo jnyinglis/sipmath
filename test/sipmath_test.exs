@@ -21,7 +21,7 @@ defmodule SIPmathTest do
             mean = 4,
             std_dev = 12, do: SIPmath.normal("abc", sv_id, mean, std_dev)
 
-    assert [1.46715] = normal_dist |> SIPmath.as_stream() |> Enum.take(1)
+    assert [1.7220934633775773] = normal_dist |> SIPmath.as_stream() |> Enum.take(1)
   end
 
   test "Beta HDR: confirm first random number" do

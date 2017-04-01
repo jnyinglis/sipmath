@@ -12,8 +12,8 @@ defmodule SIPmath do
 
   ## Examples
 
-      iex> uniform_dist =
-      ...>   with  name ="abc",
+      iex> _uniform_dist =
+      ...>   with  name ="named dist",
       ...>         sv_id = 1 do
       ...>     SIPmath.uniform(name, sv_id)
       ...>     |> SIPmath.as_stream()
