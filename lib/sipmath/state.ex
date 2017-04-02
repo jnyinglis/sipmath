@@ -11,11 +11,11 @@ defmodule SIPmath.State do
   )
 
   @type t :: %__MODULE__{
-    type: String.t,
+    type: any,
     name: String.t,
     sv_id:  integer,
     pm_index: integer,
-    type_specific:  %{}
+    type_specific:  any
   }
 
   @type t_next_value :: {float, SIPmath.State.t}

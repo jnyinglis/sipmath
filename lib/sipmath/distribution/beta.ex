@@ -37,8 +37,10 @@ defmodule SIPmath.Distribution.Beta do
   def next_value(state) do
     with  %{alpha: _alpha, beta: _beta, a: _a, b: _b} = state.type_specific,
           _sv_id = state.sv_id,
-          _pm_index = state.pm_index do
-      {0, state}
+          _pm_index = state.pm_index
+    do
+      value = 0 + 0
+      {value, state}
     end
   end
 end

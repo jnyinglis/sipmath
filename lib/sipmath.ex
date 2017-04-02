@@ -26,17 +26,17 @@ defmodule SIPmath do
   alias SIPmath.Distribution.{Uniform, Beta, Normal}
   alias SIPmath.State
 
-  @spec uniform(name :: binary(), sv_id :: integer()) :: SIPmath.State.t
+  @spec uniform(name :: String.t, sv_id :: integer) :: SIPmath.State.t
   def uniform(name, sv_id) do
     Uniform.create(name, sv_id)
   end
 
-  @spec normal(name :: binary(), sv_id :: integer(), mean :: integer(), std_dev :: number()) :: SIPmath.State.t
+  @spec normal(name :: String.t, sv_id :: integer, mean :: integer, std_dev :: number) :: SIPmath.State.t
   def normal(name, sv_id, mean, std_dev) do
     Normal.create(name, sv_id, mean, std_dev)
   end
 
-  @spec beta(name :: String.t, sv_id :: integer(), alpha :: integer(), beta :: integer(), a :: integer(), b:: integer()) :: SIPmath.State.t
+  @spec beta(name :: String.t, sv_id :: integer, alpha :: integer, beta :: integer, a :: integer, b:: integer) :: SIPmath.State.t
   def beta(name, sv_id, alpha, beta, a, b) do
     Beta.create(name, sv_id, alpha, beta, a, b)
   end

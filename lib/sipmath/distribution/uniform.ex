@@ -34,7 +34,8 @@ defmodule SIPmath.Distribution.Uniform do
   @spec next_value(state :: SIPmath.State.t) :: State.t_next_value
   def next_value(state) do
     with   sv_id = state.sv_id,
-           pm_index = state.pm_index do
+           pm_index = state.pm_index
+    do
       value =
         Math.mod(
           (
