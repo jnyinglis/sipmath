@@ -6,6 +6,11 @@ defmodule SIPmath.Distribution.Normal do
   alias SIPmath.State
   alias SIPmath.Math
 
+  @type t_type_specific :: %{
+    mean: integer,
+    std_dev:  number
+  }
+
   @default_state %State{
       type:     __MODULE__,
       name:     nil,
@@ -38,7 +43,7 @@ defmodule SIPmath.Distribution.Normal do
   Start variable id = 1
   """
   @spec next_value(state :: SIPmath.State.t) :: State.t_next_value
-  def next_value(state) do
+  def next_value(state = %State{}) do
     with   %{mean: mean, std_dev: std_dev} = state.type_specific,
            sv_id = state.sv_id,
            pm_index = state.pm_index do

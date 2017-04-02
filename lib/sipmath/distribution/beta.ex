@@ -4,7 +4,15 @@ defmodule SIPmath.Distribution.Beta do
   """
 
   alias SIPmath.State
+  alias SIPmath.Math
  
+  @type t_type_specific :: %{
+    alpha:  number,
+    beta:   number,
+    a:      number,
+    b:      number
+  }
+
   @default_state %State{
       type:     __MODULE__,
       name:     nil,
@@ -19,7 +27,7 @@ defmodule SIPmath.Distribution.Beta do
   }
    
   @spec create(name :: String.t, sv_id :: integer, alpha :: integer, beta :: integer, a :: integer, b :: integer) :: SIPmath.State.t
-  def create(name, sv_id, alpha, beta, a, b) do
+  def create(name, sv_id, alpha, beta, a, b) when is_integer(sv_id) and is_integer(alpha) and is_integer(beta) do
     @default_state
     |> Map.put(:name, name)
     |> Map.put(:sv_id, sv_id)
@@ -34,12 +42,12 @@ defmodule SIPmath.Distribution.Beta do
   Start variable id = 1
   """
   @spec next_value(state :: SIPmath.State.t) :: State.t_next_value
-  def next_value(state) do
-    with  %{alpha: _alpha, beta: _beta, a: _a, b: _b} = state.type_specific,
-          _sv_id = state.sv_id,
-          _pm_index = state.pm_index
+  def next_value(state = %State{}) do
+    with  %{alpha: alpha, beta: beta, a: a, b: b} = state.type_specific,
+          sv_id = state.sv_id,
+          pm_index = state.pm_index
     do
-      value = 0 + 0
+      value = Math.mod(alpha + beta + a + b + sv_id, pm_index)
       {value, state}
     end
   end

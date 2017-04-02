@@ -54,9 +54,13 @@ defmodule SIPmath do
     |> Stream.unfold(fn state -> next_value(state) end)
   end
 
-  @spec apply_function(state :: SIPmath.State.t, fun :: (any -> any)) :: Enumerable.t
-  def apply_function(state, fun) do
-    
+  @spec apply_function(states :: list(SIPmath.State.t), fun :: (any -> any), trials :: integer) :: Enumerable.t
+  def apply_function(states, fun, trials) do
+      states
+      |> Enum.map(&(SIPmath.as_stream(&1)))
+      |> Stream.zip()
+      |> Stream.map(fun)
+      |> Enum.take(trials)
   end
   
 end

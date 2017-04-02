@@ -15,6 +15,16 @@ defmodule SIPmathTest do
     assert [0.37674033659358525] = uniform_dist |> SIPmath.as_stream() |> Enum.take(1)
   end
 
+  test "Uniform HDR: combining random numbers, SIP math" do
+    with  uniform_dist_1 = SIPmath.uniform("value1", 1),
+          uniform_dist_2 = SIPmath.uniform("value2", 2),
+          outcome_fun = fn {value1, value2} -> value1 + value2 end,
+          trials = 1
+    do
+      assert [0.8014632555662948] = [uniform_dist_1, uniform_dist_2] |> SIPmath.apply_function(outcome_fun, trials)
+    end
+  end
+
   test "Normal HDR: confirm first random number" do
     normal_dist = 
       with  sv_id = 2,
