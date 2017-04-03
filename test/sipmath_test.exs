@@ -44,4 +44,13 @@ defmodule SIPmathTest do
 
     assert [1.46715] = beta_dist |> SIPmath.as_stream() |> Enum.take(1)
   end
+
+  test "Test the Beyond Budget example" do
+    historical_demand = [5, 6, 10, 8, 7, 10, 5, 5, 3, 2, 6, 5, 6, 3, 5, 4, 5, 4, 4, 3, 3, 3, 4, 3, 8, 3, 5, 2, 4, 5, 7, 6, 7, 8, 1, 5]
+
+    actual_dist =
+      with  sv_id = 1, do: SIPmath.actual("abc", sv_id, historical_demand)
+
+      assert historical_demand == actual_dist |> SIPmath.as_stream() |> Enum.take(Enum.count(historical_demand))
+  end
 end

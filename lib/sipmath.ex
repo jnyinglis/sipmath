@@ -41,6 +41,11 @@ defmodule SIPmath do
     Beta.create(name, sv_id, alpha, beta, a, b)
   end
 
+  @spec actual(name :: String.t, sv_id :: integer, actuals :: list(number())) :: SIPmath.State.t
+  def actual(name, sv_id, actuals) do
+    Actual.create(name, sv_id, actuals)
+  end
+
   @spec next_value(state :: SIPmath.State.t) :: State.t_next_value
   def next_value(state) do
     state
