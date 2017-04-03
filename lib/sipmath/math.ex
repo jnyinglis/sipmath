@@ -1,8 +1,8 @@
 defmodule SIPmath.Math do
   @moduledoc false
 
-  @e :math.exp(1)
-  @pi :math.pi
+# @e :math.exp(1)
+# @pi :math.pi
 
   # Coefficients in rational approximations.
   @a1 -39.696830286653757
@@ -34,6 +34,7 @@ defmodule SIPmath.Math do
   @low_point 0.02425
   @high_point 1 - @low_point
 
+  @spec mod(number :: number(), divisor :: number()) :: number()
   def mod(number, divisor) do
     rem(round(number), divisor)
   end
@@ -45,7 +46,7 @@ defmodule SIPmath.Math do
   mean, MU, and standard deviation, SIGMA.
 
   """
-  @spec norminv(p :: float, mu :: float, sigma :: float) :: float
+  @spec norminv(p :: float(), mu :: float(), sigma :: float()) :: float()
   def norminv(p, _mu, _sigma) when p == 0 do
     -1
   end
@@ -58,43 +59,43 @@ defmodule SIPmath.Math do
 
   @doc """
   """
-  @spec normsinv(p :: float) :: float
+  @spec normsinv(p :: float()) :: float()
   def normsinv(p) when p > 0 and p < @low_point do
-# Rational approximation for lower region.
+    # Rational approximation for lower region.
     with  q = :math.sqrt(-2 * :math.log(p))
     do
-(((((@c1 * q + @c2) * q + @c3) * q + @c4) * q + @c5) * q + @c6) /
-((((@d1 * q + @d2) * q + @d3) * q + @d4) * q + 1)
-end
+      (((((@c1 * q + @c2) * q + @c3) * q + @c4) * q + @c5) * q + @c6) /
+      ((((@d1 * q + @d2) * q + @d3) * q + @d4) * q + 1)
+    end
   end
-def normsinv(p) when p >= @low_point and p <= @high_point do
-# Rational approximation for central region.
-with  q = p - 0.5,
-r = q * q
-do
-(((((@a1 * r + @a2) * r + @a3) * r + @a4) * r + @a5) * r + @a6) * q /
-(((((@b1 * r + @b2) * r + @b3) * r + @b4) * r + @b5) * r + 1)
-end
-end
-def normsinv(p) when p > @high_point and p < 1 do
-# Rational approximation for upper region.
-with q = :math.sqrt(-2 * :math.log(1 - p))
-do
--(((((@c1 * q + @c2) * q + @c3) * q + @c4) * q + @c5) * q + @c6) /
-((((@d1 * q + @d2) * q + @d3) * q + @d4) * q + 1)
-end
-end
-def normsinv(p) when p == 0 or p == 1 do
-0
-end
+  def normsinv(p) when p >= @low_point and p <= @high_point do
+    # Rational approximation for central region.
+    with  q = p - 0.5,
+          r = q * q
+    do
+      (((((@a1 * r + @a2) * r + @a3) * r + @a4) * r + @a5) * r + @a6) * q /
+      (((((@b1 * r + @b2) * r + @b3) * r + @b4) * r + @b5) * r + 1)
+    end
+  end
+  def normsinv(p) when p > @high_point and p < 1 do
+    # Rational approximation for upper region.
+    with q = :math.sqrt(-2 * :math.log(1 - p))
+    do
+      -(((((@c1 * q + @c2) * q + @c3) * q + @c4) * q + @c5) * q + @c6) /
+      ((((@d1 * q + @d2) * q + @d3) * q + @d4) * q + 1)
+    end
+  end
+  def normsinv(p) when p == 0 or p == 1 do
+    0
+  end
 
-def sign(x) when x < 0 do
--1
-end
-def sign(x) when x == 0 do
-0
-end
-def sign(x) when x > 0 do
-1
-end
+  def sign(x) when x < 0 do
+    -1
+  end
+  def sign(x) when x == 0 do
+    0
+  end
+  def sign(x) when x > 0 do
+    1
+  end
 end

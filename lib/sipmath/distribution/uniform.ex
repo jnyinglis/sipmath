@@ -12,7 +12,8 @@ defmodule SIPmath.Distribution.Uniform do
       type:     __MODULE__,
       name:     nil,
       sv_id:    nil,
-      pm_index: 1
+      pm_index: 1,
+      type_specific: nil
   }
 
   @doc """

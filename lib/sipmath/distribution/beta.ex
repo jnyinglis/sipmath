@@ -7,10 +7,10 @@ defmodule SIPmath.Distribution.Beta do
   alias SIPmath.Math
  
   @type t_type_specific :: %{
-    alpha:  number,
-    beta:   number,
-    a:      number,
-    b:      number
+    alpha:  number(),
+    beta:   number(),
+    a:      number(),
+    b:      number()
   }
 
   @default_state %State{
@@ -26,8 +26,8 @@ defmodule SIPmath.Distribution.Beta do
       }
   }
    
-  @spec create(name :: String.t, sv_id :: integer, alpha :: integer, beta :: integer, a :: integer, b :: integer) :: SIPmath.State.t
-  def create(name, sv_id, alpha, beta, a, b) when is_integer(sv_id) and is_integer(alpha) and is_integer(beta) do
+  @spec create(name :: String.t, sv_id :: integer(), alpha :: number(), beta :: number(), a :: number(), b :: number()) :: SIPmath.State.t
+  def create(name, sv_id, alpha, beta, a, b) when is_integer(sv_id) and is_number(alpha) and is_number(beta) do
     @default_state
     |> Map.put(:name, name)
     |> Map.put(:sv_id, sv_id)
