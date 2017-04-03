@@ -19,7 +19,7 @@ defmodule SIPmath.State do
     name: String.t,
     sv_id:  integer(),
     pm_index: integer(),
-    type_specific:  Uniform.t_type_specific | Normal.t_type_specific | Beta.t_type_specific
+    type_specific:  Uniform.t_type_specific | Normal.t_type_specific | Beta.t_type_specific | Actual.t_type_specific
 #    normal_specific:  nil | Normal.t_normal_specific,
 #    beta_specific:  nil | Beta.t_beta_specific
   }
