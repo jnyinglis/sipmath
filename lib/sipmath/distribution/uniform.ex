@@ -20,7 +20,7 @@ defmodule SIPmath.Distribution.Uniform do
   I think I need a creator
   """
 
-  @spec create(name :: String.t, sv_id :: integer) :: SIPmath.State.t
+  @spec create(name :: String.t, sv_id :: integer()) :: SIPmath.State.t
   def create(name, sv_id) when is_binary(name) and is_integer(sv_id) do
     @default_state
     |> Map.put(:name, name)

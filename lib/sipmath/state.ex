@@ -2,7 +2,7 @@ defmodule SIPmath.State do
     
   @moduledoc false
 
-  alias SIPmath.Distribution.{Uniform, Normal, Beta}
+  alias SIPmath.Distribution.{Uniform, Normal, Beta, Actual}
 
   defstruct(
     type:       __MODULE__,
@@ -10,8 +10,6 @@ defmodule SIPmath.State do
     sv_id:      nil,
     pm_index:   nil,
     type_specific:  nil
-#    normal_specific:  nil,
-#    beta_specific:  nil
   )
 
   @type t :: %__MODULE__{
@@ -20,8 +18,6 @@ defmodule SIPmath.State do
     sv_id:  integer(),
     pm_index: integer(),
     type_specific:  Uniform.t_type_specific | Normal.t_type_specific | Beta.t_type_specific | Actual.t_type_specific
-#    normal_specific:  nil | Normal.t_normal_specific,
-#    beta_specific:  nil | Beta.t_beta_specific
   }
 
   @type t_next_value :: {integer() | float(), SIPmath.State.t}

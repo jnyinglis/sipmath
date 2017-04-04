@@ -59,7 +59,7 @@ defmodule SIPmath do
     |> Stream.unfold(fn state -> next_value(state) end)
   end
 
-  @spec apply_function_to_list(states :: list(SIPmath.State.t), fun :: (any -> any), trials :: integer) :: Enumerable.t
+  @spec apply_function_to_list(states :: list(SIPmath.State.t), fun :: (any -> any), trials :: integer()) :: Enumerable.t
   def apply_function_to_list(states, fun, trials) do
       states
       |> Enum.map(&(SIPmath.as_stream(&1)))
