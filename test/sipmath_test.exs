@@ -67,7 +67,7 @@ defmodule SIPmathTest do
           expiration_dist = SIPmath.actual("stocked", sv_id, [50]),
           airfreight_dist = SIPmath.actual("airfreight", sv_id, [150]),
           outcome_fun = fn {demand, stocked, expiration, airfreight} ->
-            case stocked-demand do
+            case (stocked-demand) do
               overstocked when overstocked > 0 -> overstocked * expiration
               understocked when understocked < 0 -> -(understocked) * airfreight
               0 -> 0
