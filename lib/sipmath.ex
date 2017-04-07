@@ -26,6 +26,10 @@ defmodule SIPmath do
   alias SIPmath.Distribution.{Uniform, Beta, Normal, Actual}
   alias SIPmath.State
 
+  @type t_SIP :: %{
+    values: list(number())
+  }
+
   @spec uniform(name :: String.t, sv_id :: integer()) :: SIPmath.State.t
   def uniform(name, sv_id) do
     Uniform.create(name, sv_id)
@@ -67,5 +71,11 @@ defmodule SIPmath do
       |> Stream.map(fun)
       |> Enum.take(trials)
   end
-  
+
+# @spec sip_from_list(values :: list(number())) :: t_SIP
+  def sip_from_list(values) do
+    %{
+      values: values
+    }
+  end
 end

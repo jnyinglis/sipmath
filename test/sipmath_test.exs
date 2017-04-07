@@ -91,4 +91,14 @@ defmodule SIPmathTest do
       SIPmath.actual("ab", sv_id, nil)
     end
   end
+
+  test "SIPmath.sip_from_list/1" do
+    input_values = 1..100
+
+    output_list =
+      1..100
+      |> SIPmath.sip_from_list()
+
+    assert %{ values: input_values } == output_list
+  end
 end
