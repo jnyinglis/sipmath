@@ -35,6 +35,11 @@ defmodule SIPmath do
     Uniform.create(name, sv_id)
   end
 
+  @spec uniform(name :: String.t, sv_id :: integer(), min :: integer(), max:: integer()) :: SIPmath.State.t
+  def uniform(name, sv_id, min, max) do
+    Uniform.create(name, sv_id, min, max)
+  end
+
   @spec normal(name :: String.t, sv_id :: integer(), mean :: integer(), std_dev :: number()) :: SIPmath.State.t
   def normal(name, sv_id, mean, std_dev) do
     Normal.create(name, sv_id, mean, std_dev)

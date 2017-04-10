@@ -12,8 +12,20 @@ defmodule SIPmathTest do
   test "Uniform HDR: confirm random numbers" do
     uniform_dist = SIPmath.uniform("abc", 1)
 
-    assert [0.37674033659358525] = uniform_dist |> SIPmath.as_stream() |> Enum.take(1)
+    assert [0.37674033659358525] == uniform_dist |> SIPmath.as_stream() |> Enum.take(1)
   end
+
+  test "Uniform HDR: confirm random numbers between 1 and 6" do
+    with min = 1,
+         max = 6,
+         sv_id = 1,
+         uniform_dist = SIPmath.uniform("abc", sv_id, min, max)
+    do
+        assert [3, 6, 4, 5, 2, 5, 6, 5, 1, 4, 1, 1] == uniform_dist |> SIPmath.as_stream() |> Enum.take(12) |> Enum.map(fn x -> trunc(x) end) # |> Enum.reduce(%{}, fn(x, acc) -> Map.put(acc, x, Map.get(acc, x, 0) + 1) end)
+    end
+
+  end
+
 
   test "Uniform HDR: combining random numbers, SIP math" do
     with  uniform_dist_1 = SIPmath.uniform("value1", 1),

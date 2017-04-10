@@ -74,7 +74,7 @@ defmodule SIPmath.Distribution.Uniform do
           ), 2_147_483_647
         ) / 2_147_483_647
         
-      value = ((max - min) * rnd_value) + min
+      value = (max  * rnd_value) + min
       {value, state}
     end
   end
