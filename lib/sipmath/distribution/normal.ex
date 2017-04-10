@@ -7,8 +7,8 @@ defmodule SIPmath.Distribution.Normal do
   alias SIPmath.Math
 
   @type t_type_specific :: %{
-    mean: integer,
-    std_dev:  number
+    mean: integer(),
+    std_dev:  number()
   }
 
   @default_state %State{
@@ -31,7 +31,7 @@ defmodule SIPmath.Distribution.Normal do
     @default_state
     |> Map.put(:name, name)
     |> Map.put(:sv_id, sv_id)
-    |> Map.put(:type_specific, %{mean: mean, std_dev: std_dev})
+    |> Map.put(:type_specific, %{@default_state.type_specific | mean: mean, std_dev: std_dev})
   end
 
 

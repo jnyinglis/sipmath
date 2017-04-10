@@ -50,7 +50,7 @@ defmodule Sequence do
           _sv_id = state.sv_id,
           _pm_index = state.pm_index
     do
-      value =
+      value = 
         case last_value do
           nil -> start_value
           _x -> last_value + step_value
