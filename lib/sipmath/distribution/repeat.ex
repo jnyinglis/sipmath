@@ -1,12 +1,13 @@
-defmodule SIPmath.Distribution.Actual do
-    @moduledoc """
-    Implement generating a stream of values using historical values.
-    """
+defmodule SIPmath.Distribution.Repeat do
+  @moduledoc """
+  Implement generating a stream of values by repeating the values that were supplied.
+  This can be useful for repeating a constant value or rotating through a short sequences of values.
+  """
 
   alias SIPmath.State
  
   @type t_type_specific :: %{
-    actuals:  nonempty_list(number),
+    repeat_values:  nonempty_list(number),
     unused_values: nonempty_list(number)
   }
 
@@ -16,17 +17,17 @@ defmodule SIPmath.Distribution.Actual do
       sv_id:    nil,
       pm_index: 1,
       type_specific:  %{
-        actuals:  nil,
+        repeat_values:  nil,
         unused_values: nil
       }
   }
    
-  @spec create(name :: String.t, sv_id :: integer(), actuals :: nonempty_list(number())) :: SIPmath.State.t
-  def create(name, sv_id, actuals = [_h | _t]) when is_integer(sv_id) and is_list(actuals) do
+  @spec create(name :: String.t, sv_id :: integer(), repeat_values :: nonempty_list(number())) :: SIPmath.State.t
+  def create(name, sv_id, repeat_values = [_h | _t]) when is_integer(sv_id) and is_list(repeat_values) do
     @default_state
     |> Map.put(:name, name)
     |> Map.put(:sv_id, sv_id)
-    |> Map.put(:type_specific, %{actuals: actuals, unused_values: actuals})
+    |> Map.put(:type_specific, %{repeat_values: repeat_values, unused_values: repeat_values})
   end
 
   @doc """
@@ -38,13 +39,13 @@ defmodule SIPmath.Distribution.Actual do
   """
   @spec next_value(state :: SIPmath.State.t) :: State.t_next_value
   def next_value(state = %State{}) do
-    with  %{actuals: actuals, unused_values: unused_values} = state.type_specific,
+    with  %{repeat_values: repeat_values, unused_values: unused_values} = state.type_specific,
           _sv_id = state.sv_id,
           _pm_index = state.pm_index
     do
       [value | new_unused_values] =
         case unused_values do
-          [h | []] -> [h | actuals]
+          [h | []] -> [h | repeat_values]
           [h | t] -> [h | t]
         end
 

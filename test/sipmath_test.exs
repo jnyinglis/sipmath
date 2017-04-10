@@ -47,25 +47,25 @@ defmodule SIPmathTest do
     end
   end
 
-  test "SIPmath.actual/3 Test that actual values are returned as a stream, which is longer than input" do
+  test "SIPmath.repeat/3 Test that repeat values are returned as a stream, which is longer than input" do
     historical_demand = [5, 6, 10, 8, 7, 10, 5, 5, 3, 2, 6, 5, 6, 3, 5, 4, 5, 4, 4, 3, 3, 3, 4, 3, 8, 3, 5, 2, 4, 5, 7, 6, 7, 8, 1, 5]
 
     with  sv_id = 1,
-          actual_dist = SIPmath.actual("abc", sv_id, historical_demand)
+          repeat_dist = SIPmath.repeat("abc", sv_id, historical_demand)
     do
       test_historical_demand = historical_demand ++ historical_demand
-      assert test_historical_demand == actual_dist |> SIPmath.as_stream() |> Enum.take(Enum.count(test_historical_demand))
+      assert test_historical_demand == repeat_dist |> SIPmath.as_stream() |> Enum.take(Enum.count(test_historical_demand))
     end
   end
 
-  test "SIPmath.actual/3 Test Beyond Budget" do
+  test "SIPmath.repeat/3 Test Beyond Budget" do
     historical_demand = [5, 6, 10, 8, 7, 10, 5, 5, 3, 2, 6, 5, 6, 3, 5, 4, 5, 4, 4, 3, 3, 3, 4, 3, 8, 3, 5, 2, 4, 5, 7, 6, 7, 8, 1, 5]
     cost = [0, 150, 750, 450, 300, 750, 0, 0, 100, 150, 150, 0, 150, 100, 0, 50, 0, 50, 50, 100, 100, 100, 50, 100, 450, 100, 0, 150, 50, 0, 300, 150, 300, 450, 200, 0]
     with  sv_id = 1,
-          demand_dist = SIPmath.actual("demand", sv_id, historical_demand),
-          amt_stocked_dist = SIPmath.actual("stocked", sv_id, [5]),
-          expiration_dist = SIPmath.actual("stocked", sv_id, [50]),
-          airfreight_dist = SIPmath.actual("airfreight", sv_id, [150]),
+          demand_dist = SIPmath.repeat("demand", sv_id, historical_demand),
+          amt_stocked_dist = SIPmath.repeat("stocked", sv_id, [5]),
+          expiration_dist = SIPmath.repeat("stocked", sv_id, [50]),
+          airfreight_dist = SIPmath.repeat("airfreight", sv_id, [150]),
           outcome_fun = fn {demand, stocked, expiration, airfreight} ->
             case (stocked-demand) do
               overstocked when overstocked > 0 -> overstocked * expiration
@@ -79,16 +79,26 @@ defmodule SIPmathTest do
     end
   end
 
-  test "SIPmath.actual/3 Fail when an empty list or no values are supplied" do
+  test "SIPmath.repeat/3 Fail when an empty list or no values are supplied" do
     empty_list = []
     sv_id = 1
 
     assert_raise FunctionClauseError, fn ->
-      SIPmath.actual("ab", sv_id, empty_list)
+      SIPmath.repeat("ab", sv_id, empty_list)
     end
 
     assert_raise FunctionClauseError, fn ->
-      SIPmath.actual("ab", sv_id, nil)
+      SIPmath.repeat("ab", sv_id, nil)
+    end
+  end
+
+  test "SIPmath.sequence" do
+    with  sv_id = 1,
+          start_value = 1,
+          step_value = 1,
+          sequence_dist = SIPmath.sequence("sequence", sv_id, start_value, step_value)
+    do
+      assert [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] == sequence_dist |> SIPmath.as_stream() |> Enum.take(10)
     end
   end
 

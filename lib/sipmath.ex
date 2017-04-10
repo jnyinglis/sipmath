@@ -23,7 +23,7 @@ defmodule SIPmath do
 
   """
 
-  alias SIPmath.Distribution.{Uniform, Beta, Normal, Actual}
+  alias SIPmath.Distribution.{Uniform, Beta, Normal, Repeat}
   alias SIPmath.State
 
   @type t_SIP :: %{
@@ -45,9 +45,14 @@ defmodule SIPmath do
     Beta.create(name, sv_id, alpha, beta, a, b)
   end
 
-  @spec actual(name :: String.t, sv_id :: integer(), actuals :: nonempty_list(number())) :: SIPmath.State.t
-  def actual(name, sv_id, actuals = [_h | _t]) do
-    Actual.create(name, sv_id, actuals)
+  @spec repeat(name :: String.t, sv_id :: integer(), repeat_values :: nonempty_list(number())) :: SIPmath.State.t
+  def repeat(name, sv_id, repeat_values = [_h | _t]) do
+    Repeat.create(name, sv_id, repeat_values)
+  end
+
+  @spec sequence(name :: String.t, sv_id :: integer(), start_value :: integer(), step_value :: integer()) :: SIPmath.State.t
+  def sequence(name, sv_id, start_value, step_value) do
+    Sequence.create(name, sv_id, start_value, step_value)
   end
 
   @spec next_value(state :: SIPmath.State.t) :: State.t_next_value
