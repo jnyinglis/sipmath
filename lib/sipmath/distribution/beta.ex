@@ -35,11 +35,6 @@ defmodule SIPmath.Distribution.Beta do
   end
 
   @doc """
-  I know I need a next value.
-
-  Calculation is:
-
-  Start variable id = 1
   """
   @spec next_value(state :: SIPmath.State.t) :: State.t_next_value
   def next_value(state = %State{}) do
