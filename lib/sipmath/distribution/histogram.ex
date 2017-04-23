@@ -31,7 +31,6 @@ defmodule SIPmath.Distribution.Histogram do
   }
 
   @doc """
-  I think I need a creator
   """
 
   @spec create(name :: binary, sv_id :: integer ) :: SIPmath.State.t

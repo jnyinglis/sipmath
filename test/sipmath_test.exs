@@ -10,7 +10,7 @@ defmodule SIPmathTest do
   end
 
   test "Uniform HDR: confirm random numbers" do
-    uniform_dist = SIPmath.uniform("abc", 1)
+    uniform_dist = SIPmath.uniform("x", 1)
 
     assert [0.37674033659358525] == uniform_dist |> SIPmath.as_stream() |> Enum.take(1)
   end
@@ -19,7 +19,7 @@ defmodule SIPmathTest do
     with min = 1,
          max = 6,
          sv_id = 1,
-         uniform_dist = SIPmath.uniform("abc", sv_id, min, max)
+         uniform_dist = SIPmath.uniform("x", sv_id, min, max)
     do
         assert [3, 6, 4, 5, 2, 5, 6, 5, 1, 4, 1, 1] == uniform_dist |> SIPmath.as_stream() |> Enum.take(12) |> Enum.map(fn x -> trunc(x) end) # |> Enum.reduce(%{}, fn(x, acc) -> Map.put(acc, x, Map.get(acc, x, 0) + 1) end)
     end
@@ -41,29 +41,29 @@ defmodule SIPmathTest do
     with  sv_id = 2,
           mean = 4,
           std_dev = 12,
-          normal_dist = SIPmath.normal("abc", sv_id, mean, std_dev)
+          normal_dist = SIPmath.normal("x", sv_id, mean, std_dev)
     do
       assert [1.7220934633775773] = normal_dist |> SIPmath.as_stream() |> Enum.take(1)
     end
   end
 
-  test "Beta HDR: confirm first random number" do
-    with  sv_id = 1,
-          alpha = 4,
-          beta = 10,
-          a = 1,
-          b = 3,
-          beta_dist = SIPmath.beta("abc", sv_id, alpha, beta, a, b )
-    do
-      assert [1.46715] = beta_dist |> SIPmath.as_stream() |> Enum.take(1)
-    end
-  end
+# test "Beta HDR: confirm first random number" do
+#   with  sv_id = 1,
+#         alpha = 4,
+#         beta = 10,
+#         a = 1,
+#         b = 3,
+#         beta_dist = SIPmath.beta("x", sv_id, alpha, beta, a, b )
+#   do
+#     assert [1.46715] = beta_dist |> SIPmath.as_stream() |> Enum.take(1)
+#   end
+# end
 
   test "SIPmath.repeat/3 Test that repeat values are returned as a stream, which is longer than input" do
     historical_demand = [5, 6, 10, 8, 7, 10, 5, 5, 3, 2, 6, 5, 6, 3, 5, 4, 5, 4, 4, 3, 3, 3, 4, 3, 8, 3, 5, 2, 4, 5, 7, 6, 7, 8, 1, 5]
 
     with  sv_id = 1,
-          repeat_dist = SIPmath.repeat("abc", sv_id, historical_demand)
+          repeat_dist = SIPmath.repeat("x", sv_id, historical_demand)
     do
       test_historical_demand = historical_demand ++ historical_demand
       assert test_historical_demand == repeat_dist |> SIPmath.as_stream() |> Enum.take(Enum.count(test_historical_demand))
@@ -76,7 +76,7 @@ defmodule SIPmathTest do
     with  sv_id = 1,
           demand_dist = SIPmath.repeat("demand", sv_id, historical_demand),
           amt_stocked_dist = SIPmath.repeat("stocked", sv_id, [5]),
-          expiration_dist = SIPmath.repeat("stocked", sv_id, [50]),
+          expiration_dist = SIPmath.repeat("expiration", sv_id, [50]),
           airfreight_dist = SIPmath.repeat("airfreight", sv_id, [150]),
           outcome_fun = fn {demand, stocked, expiration, airfreight} ->
             case (stocked-demand) do
@@ -96,11 +96,11 @@ defmodule SIPmathTest do
     sv_id = 1
 
     assert_raise FunctionClauseError, fn ->
-      SIPmath.repeat("ab", sv_id, empty_list)
+      SIPmath.repeat("x", sv_id, empty_list)
     end
 
     assert_raise FunctionClauseError, fn ->
-      SIPmath.repeat("ab", sv_id, nil)
+      SIPmath.repeat("x", sv_id, nil)
     end
   end
 

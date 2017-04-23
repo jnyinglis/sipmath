@@ -23,7 +23,6 @@ defmodule SIPmath.Distribution.Normal do
   }
 
   @doc """
-  I think I need a creator
   """
 
   @spec create(name :: binary, sv_id :: integer, mean :: integer, std_dev :: number) :: SIPmath.State.t
@@ -36,11 +35,6 @@ defmodule SIPmath.Distribution.Normal do
 
 
   @doc """
-  I know I need a next value.
-
-  Calculation is:
-
-  Start variable id = 1
   """
   @spec next_value(state :: SIPmath.State.t) :: State.t_next_value
   def next_value(state = %State{}) do
