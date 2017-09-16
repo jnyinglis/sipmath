@@ -7,7 +7,15 @@ defmodule Sipmath.Mixfile do
      elixir: "~> 1.4",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
-     deps: deps()]
+     deps: deps(),
+     # Docs
+    name: "SIPmath",
+    source_url: "https://bitbucket.org/jdunity/sipmath",
+    homepage_url: "https://jnyinglis.github.io/sipmath",
+    docs: [main: "SIPmath", # The main page in the docs
+#          logo: "path/to/logo.png",
+          extras: ["README.md"]]
+    ]
   end
 
   # Configuration for the OTP application
@@ -31,7 +39,9 @@ defmodule Sipmath.Mixfile do
     [
       {:quixir, git: "http://github.com/jnyinglis/quixir.git", override: true},
       {:pollution, git: "http://github.com/jnyinglis/pollution.git", override: true},
-      {:dialyxir, "~> 0.5", only: [:dev], runtime: false}
+      {:flow, "~> 0.12.0", override: true},
+      {:dialyxir, "~> 0.5", only: [:dev], runtime: false},
+      {:ex_doc, "~> 0.16", only: :dev, runtime: false}
     ]
   end
 end
