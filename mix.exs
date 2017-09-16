@@ -14,7 +14,9 @@ defmodule Sipmath.Mixfile do
     homepage_url: "https://jnyinglis.github.io/sipmath",
     docs: [main: "SIPmath", # The main page in the docs
 #          logo: "path/to/logo.png",
-          extras: ["README.md"]]
+           extras: ["README.md"],
+           output: "docs"
+          ]
     ]
   end
 
