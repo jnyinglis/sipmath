@@ -1,14 +1,15 @@
 defmodule SIPmath do
   @moduledoc """
-  Documentation for Sipmath.
+  Documentation for SIPmath.
+  http://probabilitymanagement.org/index.html
   """
 
   @doc """
   Supports the following distributions:
 
-  Uniform
-  Normal
-  Beta
+  - Uniform
+  - Normal
+  - Beta
 
   ## Examples
 
@@ -16,14 +17,14 @@ defmodule SIPmath do
       ...>   with  name ="named dist",
       ...>         sv_id = 1 do
       ...>     SIPmath.uniform(name, sv_id)
-      ...>     |> SIPmath.as_stream()
+      ...>     |> SIPmath.stream()
       ...>     |> Enum.take(1)
       ...>   end
       [0.37674033659358525]
 
   """
 
-  alias SIPmath.Distribution.{Uniform, Beta, Normal, Repeat}
+  alias SIPmath.Distribution.{Uniform, Beta, Normal, Cycle}
   alias SIPmath.State
 
   @type t_SIP :: %{
@@ -50,9 +51,9 @@ defmodule SIPmath do
     Beta.create(name, sv_id, alpha, beta, a, b)
   end
 
-  @spec repeat(name :: String.t, sv_id :: integer(), repeat_values :: nonempty_list(number())) :: SIPmath.State.t
-  def repeat(name, sv_id, repeat_values = [_h | _t]) do
-    Repeat.create(name, sv_id, repeat_values)
+  @spec cycle(name :: String.t, sv_id :: integer(), cycle_values :: nonempty_list(number())) :: SIPmath.State.t
+  def cycle(name, sv_id, cycle_values = [_h | _t]) do
+    Cycle.create(name, sv_id, cycle_values)
   end
 
   @spec sequence(name :: String.t, sv_id :: integer(), start_value :: integer(), step_value :: integer()) :: SIPmath.State.t
@@ -67,16 +68,16 @@ defmodule SIPmath do
     |> State.increment_index()
   end
 
-  @spec as_stream(state :: SIPmath.State.t) :: Enumerable.t
-  def as_stream(state) do
+  @spec stream(state :: SIPmath.State.t) :: Enumerable.t
+  def stream(state) do
     state
     |> Stream.unfold(fn state -> next_value(state) end)
   end
 
-  @spec apply_function_to_list(states :: list(SIPmath.State.t), fun :: (any -> any), trials :: integer()) :: Enumerable.t
-  def apply_function_to_list(states, fun, trials) do
+  @spec zip_map(states :: list(SIPmath.State.t), fun :: (any -> any), trials :: integer()) :: Enumerable.t
+  def zip_map(states, fun, trials) do
       states
-      |> Enum.map(&(SIPmath.as_stream(&1)))
+      |> Enum.map(&SIPmath.stream/1)
       |> Stream.zip()
       |> Stream.map(fun)
       |> Enum.take(trials)
