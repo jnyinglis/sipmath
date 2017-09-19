@@ -6,14 +6,21 @@ defmodule SIPmath.Distribution.Histogram do
 
   """
 
-  alias SIPmath.State
+  defstruct(
+    histogram:      nil,
+    samples:        nil,
+    sample_min:     nil,
+    sample_max:     nil,
+    number_of_bins: nil,
+    bin_width:      nil
+  )
 
   @type t_histogram :: {
     number(),
     pos_integer()
   }
 
-  @type t_type_specific :: %{
+  @type t :: %__MODULE__{
     histogram:      tuple(),
     samples:        list(number()),
     sample_min:     number(),
@@ -22,22 +29,10 @@ defmodule SIPmath.Distribution.Histogram do
     bin_width:      number()
   }
 
-  @default_state %State{
-      type:     __MODULE__,
-      name:     nil,
-      sv_id:    nil,
-      pm_index: 1,
-      type_specific:    nil
-  }
-
   @doc """
   """
-
-  @spec create(name :: binary, sv_id :: integer ) :: SIPmath.State.t
-  def create(name, sv_id) when is_binary(name) and is_integer(sv_id) do
-    @default_state
-    |> Map.put(:name, name)
-    |> Map.put(:sv_id, sv_id)
-    |> Map.put(:type_specific, nil)
+  @spec new(seed_value :: integer()) :: t()
+  def new(seed_value) when is_integer(seed_value) do
+    %__MODULE__{histogram: {1, 2}, samples: [1,2,3], sample_min: 1, sample_max: 3, number_of_bins: 1, bin_width: 1}
   end
 end

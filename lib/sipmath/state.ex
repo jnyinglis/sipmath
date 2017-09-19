@@ -2,28 +2,29 @@ defmodule SIPmath.State do
     
   @moduledoc false
 
-  alias SIPmath.Distribution.{Uniform, Normal, Beta, Repeat}
-
   defstruct(
     type:       __MODULE__,
     name:       nil,
-    sv_id:      nil,
     pm_index:   nil,
-    type_specific:  nil
+    type_specific_state:  nil
   )
 
   @type t :: %__MODULE__{
     type: any(),
     name: String.t,
-    sv_id:  integer(),
     pm_index: integer(),
-    type_specific:  Uniform.t_type_specific | Normal.t_type_specific | Beta.t_type_specific | Repeat.t_type_specific
+    type_specific_state: any()
   }
 
-  @type t_next_value :: {integer() | float(), SIPmath.State.t}
+  @type t_next_value :: {any(), t()}
 
-  @spec increment_index(next_value :: t_next_value) :: t_next_value
-  def increment_index(_next_value = {value, state = %SIPmath.State{}}) do
+  @spec new(name :: String.t(), type_specific_state :: any()) :: t()
+  def new(name, type_specific_state) do
+    %__MODULE__{name: name, pm_index: 1, type_specific_state: type_specific_state}
+  end
+
+  @spec increment_index(next_value :: t_next_value()) :: t_next_value()
+  def increment_index({value, state = %SIPmath.State{}}) do
     {value, %SIPmath.State{state | pm_index: state.pm_index + 1}}
   end
 

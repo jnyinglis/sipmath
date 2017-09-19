@@ -3,56 +3,45 @@ defmodule SIPmath.Distribution.Uniform do
   Implementation of Hubbard Decision Research uniform number generator
   """
 
-  alias SIPmath.State
+  alias SIPmath.SIPable
   alias SIPmath.Math
 
-  @type t_type_specific ::  %{
+  defstruct(
+    seed_value: 1,
+    min: 0,
+    max: 1
+  )
+
+  @type t :: %__MODULE__{
+    seed_value: pos_integer(),
     min: number(),
     max: number()
   }
 
-  @default_state %State{
-    type:     __MODULE__,
-    name:     nil,
-    sv_id:    nil,
-    pm_index: 1,
-    type_specific: %{
-      min: 0,
-      max: 1
-    }
-  }
-
   @doc """
   """
 
-  @spec create(name :: String.t, sv_id :: integer()) :: SIPmath.State.t
-  def create(name, sv_id) when is_binary(name) and is_integer(sv_id) do
-    @default_state
-    |> Map.put(:name, name)
-    |> Map.put(:sv_id, sv_id)
+  @spec new(seed_value :: pos_integer()) :: t()
+  def new(seed_value) when is_integer(seed_value) do
+    new(seed_value, 0, 1)
+  end
+  @spec new(seed_value :: pos_integer(), min :: number(), max :: number()) :: t()
+  def new(seed_value, min, max) when is_integer(seed_value) and is_number(min) and is_number(max) do
+    %__MODULE__{seed_value: seed_value, min: min, max: max}
   end
 
-  @spec create(name :: String.t, sv_id :: integer(), min :: number(), max :: number()) :: SIPmath.State.t
-  def create(name, sv_id, min, max) when is_binary(name) and is_integer(sv_id) and is_number(min) and is_number(max) do
-    @default_state
-    |> Map.put(:name, name)
-    |> Map.put(:sv_id, sv_id)
-    |> Map.put(:type_specific, %{@default_state.type_specific | min: min, max: max})
-  end
+  defimpl SIPable do
+    alias SIPmath.Distribution.Uniform
 
-  @doc """
-  """
-  @spec next_value(state :: SIPmath.State.t) :: State.t_next_value
-  def next_value(state = %State{}) do
-    with %{min: min, max: max} = state.type_specific,
-         sv_id = state.sv_id,
-         pm_index = state.pm_index
-    do
-
-      rnd_value = Math.hdr_uniform(sv_id, pm_index)
-      value = (max  * rnd_value) + min
-      {value, state}
+    @spec next_value(type_specific_state :: Uniform.t(), pm_index :: pos_integer()) :: {number(), Uniform.t()}
+    def next_value(type_specific_state = %Uniform{}, pm_index) do
+      with %{seed_value: seed_value, min: min, max: max} = type_specific_state
+      do
+  
+        rnd_value = Math.hdr_uniform(seed_value, pm_index)
+        value = (max  * rnd_value) + min
+        {value, type_specific_state}
+      end
     end
   end
-
 end

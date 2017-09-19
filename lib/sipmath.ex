@@ -1,7 +1,6 @@
 defmodule SIPmath do
   @moduledoc """
   Documentation for SIPmath.
-  http://probabilitymanagement.org/index.html
   """
 
   @doc """
@@ -15,8 +14,9 @@ defmodule SIPmath do
 
       iex> _uniform_dist =
       ...>   with  name ="named dist",
-      ...>         sv_id = 1 do
-      ...>     SIPmath.uniform(name, sv_id)
+      ...>         seed_value = 1 do
+      ...>     SIPmath.Distribution.Uniform.new(seed_value)
+      ...>     |> SIPmath.new(name)
       ...>     |> SIPmath.stream()
       ...>     |> Enum.take(1)
       ...>   end
@@ -24,57 +24,42 @@ defmodule SIPmath do
 
   """
 
-  alias SIPmath.Distribution.{Uniform, Beta, Normal, Cycle}
   alias SIPmath.State
 
   @type t_SIP :: %{
     values: list(number())
   }
 
-  @spec uniform(name :: String.t, sv_id :: integer()) :: SIPmath.State.t
-  def uniform(name, sv_id) do
-    Uniform.create(name, sv_id)
+  defprotocol SIPable do
+    @spec next_value(type_specific_state :: any(), pm_index :: pos_integer()) :: {any(), any()}
+    def next_value(type_specific_state, pm_index)
   end
 
-  @spec uniform(name :: String.t, sv_id :: integer(), min :: integer(), max:: integer()) :: SIPmath.State.t
-  def uniform(name, sv_id, min, max) do
-    Uniform.create(name, sv_id, min, max)
+  @spec new(type_specific_state :: any(), name :: String.t()) :: State.t()
+  def new(type_specific_state, name) do
+    State.new(name, type_specific_state)
   end
 
-  @spec normal(name :: String.t, sv_id :: integer(), mean :: integer(), std_dev :: number()) :: SIPmath.State.t
-  def normal(name, sv_id, mean, std_dev) do
-    Normal.create(name, sv_id, mean, std_dev)
-  end
-
-  @spec beta(name :: String.t, sv_id :: integer(), alpha :: integer(), beta :: integer(), a :: integer, b:: integer) :: SIPmath.State.t
-  def beta(name, sv_id, alpha, beta, a, b) do
-    Beta.create(name, sv_id, alpha, beta, a, b)
-  end
-
-  @spec cycle(name :: String.t, sv_id :: integer(), cycle_values :: nonempty_list(number())) :: SIPmath.State.t
-  def cycle(name, sv_id, cycle_values = [_h | _t]) do
-    Cycle.create(name, sv_id, cycle_values)
-  end
-
-  @spec sequence(name :: String.t, sv_id :: integer(), start_value :: integer(), step_value :: integer()) :: SIPmath.State.t
-  def sequence(name, sv_id, start_value, step_value) do
-    Sequence.create(name, sv_id, start_value, step_value)
-  end
-
-  @spec next_value(state :: SIPmath.State.t) :: State.t_next_value
+  @spec next_value(state :: SIPmath.State.t()) :: State.t_next_value()
   def next_value(state) do
-    state
-    |> state.type.next_value()
+    state.type_specific_state
+    |> SIPable.next_value(state.pm_index)
+    |> wrap_result_into_state(state)
     |> State.increment_index()
   end
 
-  @spec stream(state :: SIPmath.State.t) :: Enumerable.t
+  @spec wrap_result_into_state({value :: any(), type_specific_state :: any()}, state :: SIPmath.State.t()) :: {any(), SIPmath.State.t()}
+  defp wrap_result_into_state({value, type_specific_state}, state) do
+    {value, %SIPmath.State{state | type_specific_state: type_specific_state}}
+  end
+
+  @spec stream(state :: SIPmath.State.t()) :: Enumerable.t()
   def stream(state) do
     state
     |> Stream.unfold(fn state -> next_value(state) end)
   end
 
-  @spec zip_map(states :: list(SIPmath.State.t), fun :: (any -> any), trials :: integer()) :: Enumerable.t
+  @spec zip_map(states :: list(SIPmath.State.t()), fun :: (any() -> any()), trials :: integer()) :: Enumerable.t()
   def zip_map(states, fun, trials) do
       states
       |> Enum.map(&SIPmath.stream/1)

@@ -34,20 +34,20 @@ defmodule SIPmath.Math do
   @low_point 0.02425
   @high_point 1 - @low_point
 
-  @spec hdr_uniform(sv_id :: pos_integer(), pm_index :: pos_integer()) :: number()
-  def hdr_uniform(sv_id, pm_index) do
+  @spec hdr_uniform(seed_value :: pos_integer(), pm_index :: pos_integer()) :: number()
+  def hdr_uniform(seed_value, pm_index) do
     mod(
       (
         (
           (
-            mod((:math.pow((sv_id + 1_000_000), 2) + (sv_id + 1_000_000) * (pm_index + 10_000_000)), 99_999_989)
+            mod((:math.pow((seed_value + 1_000_000), 2) + (seed_value + 1_000_000) * (pm_index + 10_000_000)), 99_999_989)
           ) + 1_000_007
         )
         *
         (
           (
             mod((:math.pow((pm_index + 10_000_000), 2) + (pm_index + 10_000_000) *
-              (mod((:math.pow((sv_id + 1_000_000), 2) + (sv_id + 1_000_000) * (pm_index + 10_000_000)), 99_999_989 ))
+              (mod((:math.pow((seed_value + 1_000_000), 2) + (seed_value + 1_000_000) * (pm_index + 10_000_000)), 99_999_989 ))
               ), 99_999_989
             )
           ) + 1_000_013
@@ -56,14 +56,14 @@ defmodule SIPmath.Math do
     ) / 2_147_483_647
   end
 
-  @spec hdr_normal(mean :: integer(), std_dev :: number(), sv_id :: pos_integer(), pm_index :: pos_integer()) :: number()
-  def hdr_normal(mean, std_dev, sv_id, pm_index) do
+  @spec hdr_normal(mean :: integer(), std_dev :: number(), seed_value :: pos_integer(), pm_index :: pos_integer()) :: number()
+  def hdr_normal(mean, std_dev, seed_value, pm_index) do
     if std_dev != 0 do
       norminv(
         mod(
-          ((mod(:math.pow((sv_id+1_000_000), 2)+(sv_id+1_000_000)*(pm_index+10_000_000), 99_999_989)) + 1_000_007) *
-          ((mod(:math.pow((pm_index + 10_000_000), 2) + (pm_index + 10_000_000) * (mod(:math.pow((sv_id + 1_000_000), 2) +
-            (sv_id + 1_000_000) * (pm_index + 10_000_000), 99_999_989)), 99_999_989)) + 1_000_013), 2_147_483_647
+          ((mod(:math.pow((seed_value+1_000_000), 2)+(seed_value+1_000_000)*(pm_index+10_000_000), 99_999_989)) + 1_000_007) *
+          ((mod(:math.pow((pm_index + 10_000_000), 2) + (pm_index + 10_000_000) * (mod(:math.pow((seed_value + 1_000_000), 2) +
+            (seed_value + 1_000_000) * (pm_index + 10_000_000), 99_999_989)), 99_999_989)) + 1_000_013), 2_147_483_647
         ) / 2_147_483_647, mean, std_dev
       )
     else
