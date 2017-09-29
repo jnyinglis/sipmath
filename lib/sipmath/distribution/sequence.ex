@@ -5,6 +5,7 @@ defmodule SIPmath.Distribution.Sequence do
   """
 
   alias SIPmath.SIPable
+  alias SIPmath.State
 
   defstruct(
     start_value: 1,
@@ -21,6 +22,12 @@ defmodule SIPmath.Distribution.Sequence do
   @spec new(start_value :: integer(), step_value :: integer()) :: t()
   def new(start_value, step_value) when is_integer(start_value) and is_integer(step_value) do
     %__MODULE__{start_value: start_value, step_value: step_value, last_value: nil}
+  end
+
+  @spec sequence(start_value :: integer(), step_value :: integer(), name :: String.t()) :: State.t()
+  def sequence(start_value, step_value, name) do
+    new(start_value, step_value)
+    |> SIPmath.new(name)
   end
 
   defimpl SIPable do

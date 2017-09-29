@@ -20,7 +20,7 @@ defmodule SIPmath.State do
 
   @spec new(name :: String.t(), type_specific_state :: any()) :: t()
   def new(name, type_specific_state) do
-    %__MODULE__{name: name, pm_index: 1, type_specific_state: type_specific_state}
+    %__MODULE__{type: type_specific_state.__struct__, name: name, pm_index: 1, type_specific_state: type_specific_state}
   end
 
   @spec increment_index(next_value :: t_next_value()) :: t_next_value()

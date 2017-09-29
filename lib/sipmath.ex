@@ -1,27 +1,15 @@
 defmodule SIPmath do
-  @moduledoc """
-  Documentation for SIPmath.
+  @extras """
+  ## API
   """
 
+  @moduledoc [
+    File.read!("README.md"),
+    @extras
+  ]
+  |> Enum.join
+
   @doc """
-  Supports the following distributions:
-
-  - Uniform
-  - Normal
-  - Beta
-
-  ## Examples
-
-      iex> _uniform_dist =
-      ...>   with  name ="named dist",
-      ...>         seed_value = 1 do
-      ...>     SIPmath.Distribution.Uniform.new(seed_value)
-      ...>     |> SIPmath.new(name)
-      ...>     |> SIPmath.stream()
-      ...>     |> Enum.take(1)
-      ...>   end
-      [0.37674033659358525]
-
   """
 
   alias SIPmath.State
@@ -42,14 +30,20 @@ defmodule SIPmath do
 
   @spec next_value(state :: SIPmath.State.t()) :: State.t_next_value()
   def next_value(state) do
-    state.type_specific_state
+    state
+    |> unwrap_type_specific_state()
     |> SIPable.next_value(state.pm_index)
-    |> wrap_result_into_state(state)
+    |> wrap_type_specific_state(state)
     |> State.increment_index()
   end
 
-  @spec wrap_result_into_state({value :: any(), type_specific_state :: any()}, state :: SIPmath.State.t()) :: {any(), SIPmath.State.t()}
-  defp wrap_result_into_state({value, type_specific_state}, state) do
+  @spec unwrap_type_specific_state(state :: SIPmath.State.t()) :: any()
+  defp unwrap_type_specific_state(state) do
+    state.type_specific_state
+  end
+
+  @spec wrap_type_specific_state({value :: any(), type_specific_state :: any()}, state :: SIPmath.State.t()) :: {any(), SIPmath.State.t()}
+  defp wrap_type_specific_state({value, type_specific_state}, state) do
     {value, %SIPmath.State{state | type_specific_state: type_specific_state}}
   end
 

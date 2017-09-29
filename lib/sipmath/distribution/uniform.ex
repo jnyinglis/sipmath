@@ -4,6 +4,7 @@ defmodule SIPmath.Distribution.Uniform do
   """
 
   alias SIPmath.SIPable
+  alias SIPmath.State
   alias SIPmath.Math
 
   defstruct(
@@ -19,6 +20,7 @@ defmodule SIPmath.Distribution.Uniform do
   }
 
   @doc """
+  Generates numbers between 0 and 1 (standard uniform distribution), where each value is equally probable.
   """
 
   @spec new(seed_value :: pos_integer()) :: t()
@@ -28,6 +30,17 @@ defmodule SIPmath.Distribution.Uniform do
   @spec new(seed_value :: pos_integer(), min :: number(), max :: number()) :: t()
   def new(seed_value, min, max) when is_integer(seed_value) and is_number(min) and is_number(max) do
     %__MODULE__{seed_value: seed_value, min: min, max: max}
+  end
+
+  @spec uniform(seed_value :: pos_integer(), name :: String.t()) :: State.t()
+  def uniform(seed_value, name) do
+    new(seed_value)
+    |> SIPmath.new(name)
+  end
+  @spec uniform(seed_value :: pos_integer(), min :: number(), max :: number(), name :: String.t()) :: State.t()
+  def uniform(seed_value, min, max, name) do
+    new(seed_value, min, max)
+    |> SIPmath.new(name)
   end
 
   defimpl SIPable do

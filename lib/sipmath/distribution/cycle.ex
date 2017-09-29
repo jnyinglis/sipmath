@@ -5,6 +5,7 @@ defmodule SIPmath.Distribution.Cycle do
   """
 
   alias SIPmath.SIPable
+  alias SIPmath.State
  
   defstruct(
     cycle_values:  nil,
@@ -19,6 +20,12 @@ defmodule SIPmath.Distribution.Cycle do
   @spec new(cycle_values :: nonempty_list(number())) :: t()
   def new(cycle_values = [_h | _t]) when is_list(cycle_values) do
     %__MODULE__{cycle_values: cycle_values, unused_values: cycle_values}
+  end
+
+  @spec cycle(cycle_values :: nonempty_list(number()), name :: String.t()) :: State.t()
+  def cycle(cycle_values = [_h | _t], name) when is_list(cycle_values) do
+      new(cycle_values)
+      |> SIPmath.new(name)
   end
 
   defimpl SIPable do
