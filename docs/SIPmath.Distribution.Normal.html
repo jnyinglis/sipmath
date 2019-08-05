@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="dist/app-5b9e160cec.css" />
     
     
-    <script src="dist/sidebar_items-4ab4572f74.js"></script>
+    <script src="dist/sidebar_items-f9caa58d15.js"></script>
     
   </head>
   <body data-type="modules">
@@ -51,6 +51,8 @@
 
     
 
+    
+      <li><a id="protocols-list" href="#full-list">Protocols</a></li>
     
 
     
@@ -98,7 +100,7 @@
     </h2>
     <div class="summary-row">
   <div class="summary-signature">
-    <a href="#t:t_type_specific/0">t_type_specific()</a>
+    <a href="#t:t/0">t()</a>
   </div>
   
 </div>
@@ -113,18 +115,17 @@
     </h2>
     <div class="summary-row">
   <div class="summary-signature">
-    <a href="#create/4">create(name, sv_id, mean, std_dev)</a>
+    <a href="#new/3">new(seed_value, mean, std_dev)</a>
   </div>
   
-    <div class="summary-synopsis"></div>
+    <div class="summary-synopsis"><p>Generates numbers based upon the ‘bell curve’ distribution</p>
+</div>
   
 </div>
 <div class="summary-row">
   <div class="summary-signature">
-    <a href="#next_value/1">next_value(state)</a>
+    <a href="#normal/4">normal(seed_value, mean, std_dev, name)</a>
   </div>
-  
-    <div class="summary-synopsis"></div>
   
 </div>
 
@@ -146,17 +147,17 @@
             Types
           </h1>
           <div class="types-list">
-            <div class="detail" id="t:t_type_specific/0">
+            <div class="detail" id="t:t/0">
   
   
   <div class="detail-header">
-    <a href="#t:t_type_specific/0" class="detail-link" title="Link to this type">
+    <a href="#t:t/0" class="detail-link" title="Link to this type">
       <span class="icon-link" aria-hidden="true"></span>
       <span class="sr-only">Link to this type</span>
     </a>
-    <span class="signature">t_type_specific()</span>
+    <span class="signature">t()</span>
     
-      <a href="https://bitbucket.org/jdunity/sipmath/src/master/lib/sipmath/distribution/normal.ex#cl-9" class="view-source" rel="help" title="View Source">
+      <a href="https://bitbucket.org/jdunity/sipmath/src/master/lib/sipmath/distribution/normal.ex#cl-16" class="view-source" rel="help" title="View Source">
        <span class="icon-code" aria-hidden="true"></span>
        <span class="sr-only">View Source</span>
      </a>
@@ -165,7 +166,7 @@
     
       <div class="specs">
         
-          <pre>t_type_specific() :: %{mean: integer, std_dev: number}</pre>
+          <pre>t() :: %SIPmath.Distribution.Normal{mean: number, seed_value: integer, std_dev: number}</pre>
         
       </div>
     
@@ -188,17 +189,17 @@
             </a>
             Functions
           </h1>
-          <div class="detail" id="create/4">
+          <div class="detail" id="new/3">
   
   
   <div class="detail-header">
-    <a href="#create/4" class="detail-link" title="Link to this function">
+    <a href="#new/3" class="detail-link" title="Link to this function">
       <span class="icon-link" aria-hidden="true"></span>
       <span class="sr-only">Link to this function</span>
     </a>
-    <span class="signature">create(name, sv_id, mean, std_dev)</span>
+    <span class="signature">new(seed_value, mean, std_dev)</span>
     
-      <a href="https://bitbucket.org/jdunity/sipmath/src/master/lib/sipmath/distribution/normal.ex#cl-29" class="view-source" rel="help" title="View Source">
+      <a href="https://bitbucket.org/jdunity/sipmath/src/master/lib/sipmath/distribution/normal.ex#cl-28" class="view-source" rel="help" title="View Source">
        <span class="icon-code" aria-hidden="true"></span>
        <span class="sr-only">View Source</span>
      </a>
@@ -207,26 +208,28 @@
     
       <div class="specs">
         
-          <pre>create(name :: binary, sv_id :: integer, mean :: integer, std_dev :: number) :: SIPmath.State.t</pre>
+          <pre>new(seed_value :: integer, mean :: number, std_dev :: number) :: <a href="#t:t/0">t</a></pre>
         
       </div>
     
   </div>
   <section class="docstring">
-    
+    <p>Generates numbers based upon the ‘bell curve’ distribution.</p>
+<p>The range of the numbers is dependent upon the values that are supplied for mean and standard deviation.</p>
+
   </section>
 </div>
-<div class="detail" id="next_value/1">
+<div class="detail" id="normal/4">
   
   
   <div class="detail-header">
-    <a href="#next_value/1" class="detail-link" title="Link to this function">
+    <a href="#normal/4" class="detail-link" title="Link to this function">
       <span class="icon-link" aria-hidden="true"></span>
       <span class="sr-only">Link to this function</span>
     </a>
-    <span class="signature">next_value(state)</span>
+    <span class="signature">normal(seed_value, mean, std_dev, name)</span>
     
-      <a href="https://bitbucket.org/jdunity/sipmath/src/master/lib/sipmath/distribution/normal.ex#cl-40" class="view-source" rel="help" title="View Source">
+      <a href="https://bitbucket.org/jdunity/sipmath/src/master/lib/sipmath/distribution/normal.ex#cl-35" class="view-source" rel="help" title="View Source">
        <span class="icon-code" aria-hidden="true"></span>
        <span class="sr-only">View Source</span>
      </a>
@@ -235,7 +238,7 @@
     
       <div class="specs">
         
-          <pre>next_value(state :: SIPmath.State.t) :: SIPmath.State.t_next_value</pre>
+          <pre>normal(seed_value :: integer, mean :: number, std_dev :: number, name :: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>) :: SIPmath.State.t</pre>
         
       </div>
     

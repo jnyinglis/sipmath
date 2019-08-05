@@ -4,10 +4,10 @@ defmodule SIPmath do
   """
 
   @moduledoc [
-    File.read!("README.md"),
-    @extras
-  ]
-  |> Enum.join
+               File.read!("README.md"),
+               @extras
+             ]
+             |> Enum.join()
 
   @doc """
   """
@@ -15,8 +15,8 @@ defmodule SIPmath do
   alias SIPmath.State
 
   @type t_SIP :: %{
-    values: list(number())
-  }
+          values: list(number())
+        }
 
   defprotocol SIPable do
     @spec next_value(type_specific_state :: any(), pm_index :: pos_integer()) :: {any(), any()}
@@ -42,7 +42,10 @@ defmodule SIPmath do
     state.type_specific_state
   end
 
-  @spec wrap_type_specific_state({value :: any(), type_specific_state :: any()}, state :: SIPmath.State.t()) :: {any(), SIPmath.State.t()}
+  @spec wrap_type_specific_state(
+          {value :: any(), type_specific_state :: any()},
+          state :: SIPmath.State.t()
+        ) :: {any(), SIPmath.State.t()}
   defp wrap_type_specific_state({value, type_specific_state}, state) do
     {value, %SIPmath.State{state | type_specific_state: type_specific_state}}
   end
@@ -53,16 +56,17 @@ defmodule SIPmath do
     |> Stream.unfold(fn state -> next_value(state) end)
   end
 
-  @spec zip_map(states :: list(SIPmath.State.t()), fun :: (any() -> any()), trials :: integer()) :: Enumerable.t()
+  @spec zip_map(states :: list(SIPmath.State.t()), fun :: (any() -> any()), trials :: integer()) ::
+          Enumerable.t()
   def zip_map(states, fun, trials) do
-      states
-      |> Enum.map(&SIPmath.stream/1)
-      |> Stream.zip()
-      |> Stream.map(fun)
-      |> Enum.take(trials)
+    states
+    |> Enum.map(&SIPmath.stream/1)
+    |> Stream.zip()
+    |> Stream.map(fun)
+    |> Enum.take(trials)
   end
 
-# @spec sip_from_list(values :: list(number())) :: t_SIP
+  # @spec sip_from_list(values :: list(number())) :: t_SIP
   def sip_from_list(values) do
     %{
       values: values

@@ -4,7 +4,7 @@ fonts/icomoon.eot
 fonts/icomoon.svg
 fonts/icomoon.ttf
 fonts/icomoon.woff
-dist/sidebar_items-4ab4572f74.js
+dist/sidebar_items-f9caa58d15.js
 api-reference.html
 readme.html
 search.html
@@ -14,6 +14,7 @@ SIPmath.Distribution.Beta.html
 SIPmath.Distribution.Cycle.html
 SIPmath.Distribution.Histogram.html
 SIPmath.Distribution.Normal.html
+SIPmath.Distribution.Sequence.html
 SIPmath.Distribution.Uniform.html
-Sequence.html
+SIPmath.SIPable.html
 index.html

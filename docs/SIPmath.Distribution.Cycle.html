@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="dist/app-5b9e160cec.css" />
     
     
-    <script src="dist/sidebar_items-4ab4572f74.js"></script>
+    <script src="dist/sidebar_items-f9caa58d15.js"></script>
     
   </head>
   <body data-type="modules">
@@ -51,6 +51,8 @@
 
     
 
+    
+      <li><a id="protocols-list" href="#full-list">Protocols</a></li>
     
 
     
@@ -99,7 +101,7 @@ This can be useful for repeating a constant value or rotating through a short se
     </h2>
     <div class="summary-row">
   <div class="summary-signature">
-    <a href="#t:t_type_specific/0">t_type_specific()</a>
+    <a href="#t:t/0">t()</a>
   </div>
   
 </div>
@@ -114,17 +116,14 @@ This can be useful for repeating a constant value or rotating through a short se
     </h2>
     <div class="summary-row">
   <div class="summary-signature">
-    <a href="#create/3">create(name, sv_id, cycle_values)</a>
+    <a href="#cycle/2">cycle(cycle_values, name)</a>
   </div>
   
 </div>
 <div class="summary-row">
   <div class="summary-signature">
-    <a href="#next_value/1">next_value(state)</a>
+    <a href="#new/1">new(cycle_values)</a>
   </div>
-  
-    <div class="summary-synopsis"><p>I know I need a next value</p>
-</div>
   
 </div>
 
@@ -146,17 +145,17 @@ This can be useful for repeating a constant value or rotating through a short se
             Types
           </h1>
           <div class="types-list">
-            <div class="detail" id="t:t_type_specific/0">
+            <div class="detail" id="t:t/0">
   
   
   <div class="detail-header">
-    <a href="#t:t_type_specific/0" class="detail-link" title="Link to this type">
+    <a href="#t:t/0" class="detail-link" title="Link to this type">
       <span class="icon-link" aria-hidden="true"></span>
       <span class="sr-only">Link to this type</span>
     </a>
-    <span class="signature">t_type_specific()</span>
+    <span class="signature">t()</span>
     
-      <a href="https://bitbucket.org/jdunity/sipmath/src/master/lib/sipmath/distribution/cycle.ex#cl-9" class="view-source" rel="help" title="View Source">
+      <a href="https://bitbucket.org/jdunity/sipmath/src/master/lib/sipmath/distribution/cycle.ex#cl-15" class="view-source" rel="help" title="View Source">
        <span class="icon-code" aria-hidden="true"></span>
        <span class="sr-only">View Source</span>
      </a>
@@ -165,7 +164,7 @@ This can be useful for repeating a constant value or rotating through a short se
     
       <div class="specs">
         
-          <pre>t_type_specific() :: %{cycle_values: [number, ...], unused_values: [number, ...]}</pre>
+          <pre>t() :: %SIPmath.Distribution.Cycle{cycle_values: [any, ...], unused_values: [any, ...]}</pre>
         
       </div>
     
@@ -188,15 +187,15 @@ This can be useful for repeating a constant value or rotating through a short se
             </a>
             Functions
           </h1>
-          <div class="detail" id="create/3">
+          <div class="detail" id="cycle/2">
   
   
   <div class="detail-header">
-    <a href="#create/3" class="detail-link" title="Link to this function">
+    <a href="#cycle/2" class="detail-link" title="Link to this function">
       <span class="icon-link" aria-hidden="true"></span>
       <span class="sr-only">Link to this function</span>
     </a>
-    <span class="signature">create(name, sv_id, cycle_values)</span>
+    <span class="signature">cycle(cycle_values, name)</span>
     
       <a href="https://bitbucket.org/jdunity/sipmath/src/master/lib/sipmath/distribution/cycle.ex#cl-26" class="view-source" rel="help" title="View Source">
        <span class="icon-code" aria-hidden="true"></span>
@@ -207,7 +206,7 @@ This can be useful for repeating a constant value or rotating through a short se
     
       <div class="specs">
         
-          <pre>create(name :: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>, sv_id :: integer, cycle_values :: [number, ...]) :: SIPmath.State.t</pre>
+          <pre>cycle(cycle_values :: [number, ...], name :: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>) :: SIPmath.State.t</pre>
         
       </div>
     
@@ -216,17 +215,17 @@ This can be useful for repeating a constant value or rotating through a short se
     
   </section>
 </div>
-<div class="detail" id="next_value/1">
+<div class="detail" id="new/1">
   
   
   <div class="detail-header">
-    <a href="#next_value/1" class="detail-link" title="Link to this function">
+    <a href="#new/1" class="detail-link" title="Link to this function">
       <span class="icon-link" aria-hidden="true"></span>
       <span class="sr-only">Link to this function</span>
     </a>
-    <span class="signature">next_value(state)</span>
+    <span class="signature">new(cycle_values)</span>
     
-      <a href="https://bitbucket.org/jdunity/sipmath/src/master/lib/sipmath/distribution/cycle.ex#cl-41" class="view-source" rel="help" title="View Source">
+      <a href="https://bitbucket.org/jdunity/sipmath/src/master/lib/sipmath/distribution/cycle.ex#cl-21" class="view-source" rel="help" title="View Source">
        <span class="icon-code" aria-hidden="true"></span>
        <span class="sr-only">View Source</span>
      </a>
@@ -235,16 +234,13 @@ This can be useful for repeating a constant value or rotating through a short se
     
       <div class="specs">
         
-          <pre>next_value(state :: SIPmath.State.t) :: SIPmath.State.t_next_value</pre>
+          <pre>new(cycle_values :: [number, ...]) :: <a href="#t:t/0">t</a></pre>
         
       </div>
     
   </div>
   <section class="docstring">
-    <p>I know I need a next value.</p>
-<p>Calculation is:</p>
-<p>Start variable id = 1</p>
-
+    
   </section>
 </div>
 

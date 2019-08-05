@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="dist/app-5b9e160cec.css" />
     
     
-    <script src="dist/sidebar_items-4ab4572f74.js"></script>
+    <script src="dist/sidebar_items-f9caa58d15.js"></script>
     
   </head>
   <body data-type="modules">
@@ -52,6 +52,8 @@
     
 
     
+      <li><a id="protocols-list" href="#full-list">Protocols</a></li>
+    
 
     
   </ul>
@@ -77,8 +79,56 @@
 
       
         <section id="moduledoc">
-          <p>Documentation for SIPmath.
-http://probabilitymanagement.org/index.html</p>
+          <h1>SIPmath : Calculating with Uncertainties</h1>
+<p>To get a better understanding of SIPmath, and the inspiration for this library, check out the Probability Management website at http://probabilitymanagement.org.</p>
+<p>The ability to generate a stream of random numbers taken from a known distribution.</p>
+<p>Supports the following distributions:</p>
+<ul>
+<li>Uniform
+</li>
+<li>Normal
+</li>
+<li>Beta
+</li>
+</ul>
+<h2 id="module-examples" class="section-heading">
+  <a href="#module-examples" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Examples
+</h2>
+
+<pre><code class="iex elixir">iex&gt; _uniform_dist =
+...&gt;   with  name =&quot;named dist&quot;,
+...&gt;         seed_value = 1
+...&gt;   do
+...&gt;     uniform(seed_value, name)
+...&gt;     |&gt; SIPmath.stream()
+...&gt;     |&gt; Enum.take(1)
+...&gt;   end
+[0.37674033659358525]
+
+iex&gt; _combined_outcome =
+...&gt;   with  uniform_dist_1 = uniform(1, &quot;value1&quot;),
+...&gt;         uniform_dist_2 = uniform(2, &quot;value2&quot;),
+...&gt;         outcome_fun = fn {value1, value2} -&gt; value1 + value2 end,
+...&gt;         trials = 1
+...&gt;   do
+...&gt;     [uniform_dist_1, uniform_dist_2]
+...&gt;     |&gt; SIPmath.zip_map(outcome_fun, trials)
+...&gt;   end
+[0.8014632555662948]</code></pre>
+<h2 id="module-usage" class="section-heading">
+  <a href="#module-usage" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Usage
+</h2>
+
+<pre><code class="elixir">def deps do
+  [{:sipmath, &quot;~&gt; 0.1.0&quot;}]
+end</code></pre>
+<h2 id="module-api" class="section-heading">
+  <a href="#module-api" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  API
+</h2>
+
 
         </section>
       
@@ -114,31 +164,15 @@ http://probabilitymanagement.org/index.html</p>
     </h2>
     <div class="summary-row">
   <div class="summary-signature">
-    <a href="#beta/6">beta(name, sv_id, alpha, beta, a, b)</a>
+    <a href="#new/2">new(type_specific_state, name)</a>
   </div>
   
-</div>
-<div class="summary-row">
-  <div class="summary-signature">
-    <a href="#cycle/3">cycle(name, sv_id, cycle_values)</a>
-  </div>
+    <div class="summary-synopsis"></div>
   
 </div>
 <div class="summary-row">
   <div class="summary-signature">
     <a href="#next_value/1">next_value(state)</a>
-  </div>
-  
-</div>
-<div class="summary-row">
-  <div class="summary-signature">
-    <a href="#normal/4">normal(name, sv_id, mean, std_dev)</a>
-  </div>
-  
-</div>
-<div class="summary-row">
-  <div class="summary-signature">
-    <a href="#sequence/4">sequence(name, sv_id, start_value, step_value)</a>
   </div>
   
 </div>
@@ -151,21 +185,6 @@ http://probabilitymanagement.org/index.html</p>
 <div class="summary-row">
   <div class="summary-signature">
     <a href="#stream/1">stream(state)</a>
-  </div>
-  
-</div>
-<div class="summary-row">
-  <div class="summary-signature">
-    <a href="#uniform/2">uniform(name, sv_id)</a>
-  </div>
-  
-    <div class="summary-synopsis"><p>Supports the following distributions</p>
-</div>
-  
-</div>
-<div class="summary-row">
-  <div class="summary-signature">
-    <a href="#uniform/4">uniform(name, sv_id, min, max)</a>
   </div>
   
 </div>
@@ -204,7 +223,7 @@ http://probabilitymanagement.org/index.html</p>
     </a>
     <span class="signature">t_SIP()</span>
     
-      <a href="https://bitbucket.org/jdunity/sipmath/src/master/lib/sipmath.ex#cl-30" class="view-source" rel="help" title="View Source">
+      <a href="https://bitbucket.org/jdunity/sipmath/src/master/lib/sipmath.ex#cl-17" class="view-source" rel="help" title="View Source">
        <span class="icon-code" aria-hidden="true"></span>
        <span class="sr-only">View Source</span>
      </a>
@@ -236,17 +255,17 @@ http://probabilitymanagement.org/index.html</p>
             </a>
             Functions
           </h1>
-          <div class="detail" id="beta/6">
+          <div class="detail" id="new/2">
   
   
   <div class="detail-header">
-    <a href="#beta/6" class="detail-link" title="Link to this function">
+    <a href="#new/2" class="detail-link" title="Link to this function">
       <span class="icon-link" aria-hidden="true"></span>
       <span class="sr-only">Link to this function</span>
     </a>
-    <span class="signature">beta(name, sv_id, alpha, beta, a, b)</span>
+    <span class="signature">new(type_specific_state, name)</span>
     
-      <a href="https://bitbucket.org/jdunity/sipmath/src/master/lib/sipmath.ex#cl-50" class="view-source" rel="help" title="View Source">
+      <a href="https://bitbucket.org/jdunity/sipmath/src/master/lib/sipmath.ex#cl-27" class="view-source" rel="help" title="View Source">
        <span class="icon-code" aria-hidden="true"></span>
        <span class="sr-only">View Source</span>
      </a>
@@ -255,35 +274,7 @@ http://probabilitymanagement.org/index.html</p>
     
       <div class="specs">
         
-          <pre>beta(name :: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>, sv_id :: integer, alpha :: integer, beta :: integer, a :: integer, b :: integer) :: SIPmath.State.t</pre>
-        
-      </div>
-    
-  </div>
-  <section class="docstring">
-    
-  </section>
-</div>
-<div class="detail" id="cycle/3">
-  
-  
-  <div class="detail-header">
-    <a href="#cycle/3" class="detail-link" title="Link to this function">
-      <span class="icon-link" aria-hidden="true"></span>
-      <span class="sr-only">Link to this function</span>
-    </a>
-    <span class="signature">cycle(name, sv_id, cycle_values)</span>
-    
-      <a href="https://bitbucket.org/jdunity/sipmath/src/master/lib/sipmath.ex#cl-55" class="view-source" rel="help" title="View Source">
-       <span class="icon-code" aria-hidden="true"></span>
-       <span class="sr-only">View Source</span>
-     </a>
-    
-    
-    
-      <div class="specs">
-        
-          <pre>cycle(name :: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>, sv_id :: integer, cycle_values :: [number, ...]) :: SIPmath.State.t</pre>
+          <pre>new(type_specific_state :: any, name :: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>) :: SIPmath.State.t</pre>
         
       </div>
     
@@ -302,7 +293,7 @@ http://probabilitymanagement.org/index.html</p>
     </a>
     <span class="signature">next_value(state)</span>
     
-      <a href="https://bitbucket.org/jdunity/sipmath/src/master/lib/sipmath.ex#cl-65" class="view-source" rel="help" title="View Source">
+      <a href="https://bitbucket.org/jdunity/sipmath/src/master/lib/sipmath.ex#cl-32" class="view-source" rel="help" title="View Source">
        <span class="icon-code" aria-hidden="true"></span>
        <span class="sr-only">View Source</span>
      </a>
@@ -312,62 +303,6 @@ http://probabilitymanagement.org/index.html</p>
       <div class="specs">
         
           <pre>next_value(state :: SIPmath.State.t) :: SIPmath.State.t_next_value</pre>
-        
-      </div>
-    
-  </div>
-  <section class="docstring">
-    
-  </section>
-</div>
-<div class="detail" id="normal/4">
-  
-  
-  <div class="detail-header">
-    <a href="#normal/4" class="detail-link" title="Link to this function">
-      <span class="icon-link" aria-hidden="true"></span>
-      <span class="sr-only">Link to this function</span>
-    </a>
-    <span class="signature">normal(name, sv_id, mean, std_dev)</span>
-    
-      <a href="https://bitbucket.org/jdunity/sipmath/src/master/lib/sipmath.ex#cl-45" class="view-source" rel="help" title="View Source">
-       <span class="icon-code" aria-hidden="true"></span>
-       <span class="sr-only">View Source</span>
-     </a>
-    
-    
-    
-      <div class="specs">
-        
-          <pre>normal(name :: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>, sv_id :: integer, mean :: integer, std_dev :: number) :: SIPmath.State.t</pre>
-        
-      </div>
-    
-  </div>
-  <section class="docstring">
-    
-  </section>
-</div>
-<div class="detail" id="sequence/4">
-  
-  
-  <div class="detail-header">
-    <a href="#sequence/4" class="detail-link" title="Link to this function">
-      <span class="icon-link" aria-hidden="true"></span>
-      <span class="sr-only">Link to this function</span>
-    </a>
-    <span class="signature">sequence(name, sv_id, start_value, step_value)</span>
-    
-      <a href="https://bitbucket.org/jdunity/sipmath/src/master/lib/sipmath.ex#cl-60" class="view-source" rel="help" title="View Source">
-       <span class="icon-code" aria-hidden="true"></span>
-       <span class="sr-only">View Source</span>
-     </a>
-    
-    
-    
-      <div class="specs">
-        
-          <pre>sequence(name :: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>, sv_id :: integer, start_value :: integer, step_value :: integer) :: SIPmath.State.t</pre>
         
       </div>
     
@@ -386,7 +321,7 @@ http://probabilitymanagement.org/index.html</p>
     </a>
     <span class="signature">sip_from_list(values)</span>
     
-      <a href="https://bitbucket.org/jdunity/sipmath/src/master/lib/sipmath.ex#cl-87" class="view-source" rel="help" title="View Source">
+      <a href="https://bitbucket.org/jdunity/sipmath/src/master/lib/sipmath.ex#cl-70" class="view-source" rel="help" title="View Source">
        <span class="icon-code" aria-hidden="true"></span>
        <span class="sr-only">View Source</span>
      </a>
@@ -408,7 +343,7 @@ http://probabilitymanagement.org/index.html</p>
     </a>
     <span class="signature">stream(state)</span>
     
-      <a href="https://bitbucket.org/jdunity/sipmath/src/master/lib/sipmath.ex#cl-72" class="view-source" rel="help" title="View Source">
+      <a href="https://bitbucket.org/jdunity/sipmath/src/master/lib/sipmath.ex#cl-54" class="view-source" rel="help" title="View Source">
        <span class="icon-code" aria-hidden="true"></span>
        <span class="sr-only">View Source</span>
      </a>
@@ -418,84 +353,6 @@ http://probabilitymanagement.org/index.html</p>
       <div class="specs">
         
           <pre>stream(state :: SIPmath.State.t) :: <a href="https://hexdocs.pm/elixir/Enumerable.html#t:t/0">Enumerable.t</a></pre>
-        
-      </div>
-    
-  </div>
-  <section class="docstring">
-    
-  </section>
-</div>
-<div class="detail" id="uniform/2">
-  
-  
-  <div class="detail-header">
-    <a href="#uniform/2" class="detail-link" title="Link to this function">
-      <span class="icon-link" aria-hidden="true"></span>
-      <span class="sr-only">Link to this function</span>
-    </a>
-    <span class="signature">uniform(name, sv_id)</span>
-    
-      <a href="https://bitbucket.org/jdunity/sipmath/src/master/lib/sipmath.ex#cl-35" class="view-source" rel="help" title="View Source">
-       <span class="icon-code" aria-hidden="true"></span>
-       <span class="sr-only">View Source</span>
-     </a>
-    
-    
-    
-      <div class="specs">
-        
-          <pre>uniform(name :: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>, sv_id :: integer) :: SIPmath.State.t</pre>
-        
-      </div>
-    
-  </div>
-  <section class="docstring">
-    <p>Supports the following distributions:</p>
-<ul>
-<li>Uniform
-</li>
-<li>Normal
-</li>
-<li>Beta
-</li>
-</ul>
-<h2 id="uniform/2-examples" class="section-heading">
-  <a href="#uniform/2-examples" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
-  Examples
-</h2>
-
-<pre><code class="iex elixir">iex&gt; _uniform_dist =
-...&gt;   with  name =&quot;named dist&quot;,
-...&gt;         sv_id = 1 do
-...&gt;     SIPmath.uniform(name, sv_id)
-...&gt;     |&gt; SIPmath.stream()
-...&gt;     |&gt; Enum.take(1)
-...&gt;   end
-[0.37674033659358525]</code></pre>
-
-  </section>
-</div>
-<div class="detail" id="uniform/4">
-  
-  
-  <div class="detail-header">
-    <a href="#uniform/4" class="detail-link" title="Link to this function">
-      <span class="icon-link" aria-hidden="true"></span>
-      <span class="sr-only">Link to this function</span>
-    </a>
-    <span class="signature">uniform(name, sv_id, min, max)</span>
-    
-      <a href="https://bitbucket.org/jdunity/sipmath/src/master/lib/sipmath.ex#cl-40" class="view-source" rel="help" title="View Source">
-       <span class="icon-code" aria-hidden="true"></span>
-       <span class="sr-only">View Source</span>
-     </a>
-    
-    
-    
-      <div class="specs">
-        
-          <pre>uniform(name :: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>, sv_id :: integer, min :: integer, max :: integer) :: SIPmath.State.t</pre>
         
       </div>
     
@@ -514,7 +371,7 @@ http://probabilitymanagement.org/index.html</p>
     </a>
     <span class="signature">zip_map(states, fun, trials)</span>
     
-      <a href="https://bitbucket.org/jdunity/sipmath/src/master/lib/sipmath.ex#cl-78" class="view-source" rel="help" title="View Source">
+      <a href="https://bitbucket.org/jdunity/sipmath/src/master/lib/sipmath.ex#cl-61" class="view-source" rel="help" title="View Source">
        <span class="icon-code" aria-hidden="true"></span>
        <span class="sr-only">View Source</span>
      </a>

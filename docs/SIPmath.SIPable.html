@@ -5,14 +5,14 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.16.4">
-    <title>Sequence – SIPmath v0.1.0</title>
+    <title>SIPmath.SIPable – SIPmath v0.1.0</title>
     <link rel="stylesheet" href="dist/app-5b9e160cec.css" />
     
     
-    <script src="dist/sidebar_items-4ab4572f74.js"></script>
+    <script src="dist/sidebar_items-f9caa58d15.js"></script>
     
   </head>
-  <body data-type="modules">
+  <body data-type="protocols">
     <script>try { if(localStorage.getItem('night-mode')) document.body.className += ' night-mode'; } catch (e) { }</script>
 
     <div class="main">
@@ -52,6 +52,8 @@
     
 
     
+      <li><a id="protocols-list" href="#full-list">Protocols</a></li>
+    
 
     
   </ul>
@@ -66,21 +68,15 @@
 
       <h1>
         <small class="visible-xs">SIPmath v0.1.0</small>
-        Sequence
+        SIPmath.SIPable <small>protocol</small>
         
-          <a href="https://bitbucket.org/jdunity/sipmath/src/master/lib/sipmath/distribution/sequence.ex#cl-1" title="View Source" class="view-source" rel="help">
+          <a href="https://bitbucket.org/jdunity/sipmath/src/master/lib/sipmath.ex#cl-21" title="View Source" class="view-source" rel="help">
             <span class="icon-code" aria-hidden="true"></span>
             <span class="sr-only">View Source</span>
           </a>
         
       </h1>
 
-      
-        <section id="moduledoc">
-          <p>Implement generating a stream of values where succesive values follow a predetermined sequence.
-An example of this is monotonically increasing values.</p>
-
-        </section>
       
 
       
@@ -99,7 +95,7 @@ An example of this is monotonically increasing values.</p>
     </h2>
     <div class="summary-row">
   <div class="summary-signature">
-    <a href="#t:t_type_specific/0">t_type_specific()</a>
+    <a href="#t:t/0">t()</a>
   </div>
   
 </div>
@@ -114,17 +110,8 @@ An example of this is monotonically increasing values.</p>
     </h2>
     <div class="summary-row">
   <div class="summary-signature">
-    <a href="#create/4">create(name, sv_id, start_value, step_value)</a>
+    <a href="#next_value/2">next_value(type_specific_state, pm_index)</a>
   </div>
-  
-</div>
-<div class="summary-row">
-  <div class="summary-signature">
-    <a href="#next_value/1">next_value(state)</a>
-  </div>
-  
-    <div class="summary-synopsis"><p>I know I need a next value</p>
-</div>
   
 </div>
 
@@ -146,17 +133,17 @@ An example of this is monotonically increasing values.</p>
             Types
           </h1>
           <div class="types-list">
-            <div class="detail" id="t:t_type_specific/0">
+            <div class="detail" id="t:t/0">
   
   
   <div class="detail-header">
-    <a href="#t:t_type_specific/0" class="detail-link" title="Link to this type">
+    <a href="#t:t/0" class="detail-link" title="Link to this type">
       <span class="icon-link" aria-hidden="true"></span>
       <span class="sr-only">Link to this type</span>
     </a>
-    <span class="signature">t_type_specific()</span>
+    <span class="signature">t()</span>
     
-      <a href="https://bitbucket.org/jdunity/sipmath/src/master/lib/sipmath/distribution/sequence.ex#cl-9" class="view-source" rel="help" title="View Source">
+      <a href="https://bitbucket.org/jdunity/sipmath/src/master/lib/sipmath.ex#cl-21" class="view-source" rel="help" title="View Source">
        <span class="icon-code" aria-hidden="true"></span>
        <span class="sr-only">View Source</span>
      </a>
@@ -165,7 +152,7 @@ An example of this is monotonically increasing values.</p>
     
       <div class="specs">
         
-          <pre>t_type_specific() :: %{start_value: integer, step_value: integer, last_value: integer}</pre>
+          <pre>t() :: term</pre>
         
       </div>
     
@@ -188,17 +175,17 @@ An example of this is monotonically increasing values.</p>
             </a>
             Functions
           </h1>
-          <div class="detail" id="create/4">
+          <div class="detail" id="next_value/2">
   
   
   <div class="detail-header">
-    <a href="#create/4" class="detail-link" title="Link to this function">
+    <a href="#next_value/2" class="detail-link" title="Link to this function">
       <span class="icon-link" aria-hidden="true"></span>
       <span class="sr-only">Link to this function</span>
     </a>
-    <span class="signature">create(name, sv_id, start_value, step_value)</span>
+    <span class="signature">next_value(type_specific_state, pm_index)</span>
     
-      <a href="https://bitbucket.org/jdunity/sipmath/src/master/lib/sipmath/distribution/sequence.ex#cl-28" class="view-source" rel="help" title="View Source">
+      <a href="https://bitbucket.org/jdunity/sipmath/src/master/lib/sipmath.ex#cl-23" class="view-source" rel="help" title="View Source">
        <span class="icon-code" aria-hidden="true"></span>
        <span class="sr-only">View Source</span>
      </a>
@@ -207,44 +194,13 @@ An example of this is monotonically increasing values.</p>
     
       <div class="specs">
         
-          <pre>create(name :: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>, sv_id :: integer, start_value :: integer, step_value :: integer) :: SIPmath.State.t</pre>
+          <pre>next_value(type_specific_state :: any, pm_index :: pos_integer) :: {any, any}</pre>
         
       </div>
     
   </div>
   <section class="docstring">
     
-  </section>
-</div>
-<div class="detail" id="next_value/1">
-  
-  
-  <div class="detail-header">
-    <a href="#next_value/1" class="detail-link" title="Link to this function">
-      <span class="icon-link" aria-hidden="true"></span>
-      <span class="sr-only">Link to this function</span>
-    </a>
-    <span class="signature">next_value(state)</span>
-    
-      <a href="https://bitbucket.org/jdunity/sipmath/src/master/lib/sipmath/distribution/sequence.ex#cl-48" class="view-source" rel="help" title="View Source">
-       <span class="icon-code" aria-hidden="true"></span>
-       <span class="sr-only">View Source</span>
-     </a>
-    
-    
-    
-      <div class="specs">
-        
-          <pre>next_value(state :: SIPmath.State.t) :: SIPmath.State.t_next_value</pre>
-        
-      </div>
-    
-  </div>
-  <section class="docstring">
-    <p>I know I need a next value.</p>
-<p>Calculation is:</p>
-<p>Start variable id = 1</p>
-
   </section>
 </div>
 

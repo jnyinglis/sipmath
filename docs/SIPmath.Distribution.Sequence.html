@@ -5,7 +5,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.16.4">
-    <title>SIPmath.Distribution.Histogram – SIPmath v0.1.0</title>
+    <title>SIPmath.Distribution.Sequence – SIPmath v0.1.0</title>
     <link rel="stylesheet" href="dist/app-5b9e160cec.css" />
     
     
@@ -68,9 +68,9 @@
 
       <h1>
         <small class="visible-xs">SIPmath v0.1.0</small>
-        SIPmath.Distribution.Histogram
+        SIPmath.Distribution.Sequence
         
-          <a href="https://bitbucket.org/jdunity/sipmath/src/master/lib/sipmath/distribution/histogram.ex#cl-1" title="View Source" class="view-source" rel="help">
+          <a href="https://bitbucket.org/jdunity/sipmath/src/master/lib/sipmath/distribution/sequence.ex#cl-1" title="View Source" class="view-source" rel="help">
             <span class="icon-code" aria-hidden="true"></span>
             <span class="sr-only">View Source</span>
           </a>
@@ -79,8 +79,8 @@
 
       
         <section id="moduledoc">
-          <p>Generates values by sampling from a supplied histogram.</p>
-<p>The histogram can be given or can be generated from a list of input values.</p>
+          <p>Implement generating a stream of values where succesive values follow a predetermined sequence.
+An example of this is monotonically increasing values.</p>
 
         </section>
       
@@ -105,12 +105,6 @@
   </div>
   
 </div>
-<div class="summary-row">
-  <div class="summary-signature">
-    <a href="#t:t_histogram/0">t_histogram()</a>
-  </div>
-  
-</div>
 
   </div>
 
@@ -122,16 +116,14 @@
     </h2>
     <div class="summary-row">
   <div class="summary-signature">
-    <a href="#histogram/3">histogram(seed_value, histogram, name)</a>
+    <a href="#new/2">new(start_value, step_value)</a>
   </div>
   
 </div>
 <div class="summary-row">
   <div class="summary-signature">
-    <a href="#new/2">new(seed_value, histogram)</a>
+    <a href="#sequence/3">sequence(start_value, step_value, name)</a>
   </div>
-  
-    <div class="summary-synopsis"></div>
   
 </div>
 
@@ -163,7 +155,7 @@
     </a>
     <span class="signature">t()</span>
     
-      <a href="https://bitbucket.org/jdunity/sipmath/src/master/lib/sipmath/distribution/histogram.ex#cl-28" class="view-source" rel="help" title="View Source">
+      <a href="https://bitbucket.org/jdunity/sipmath/src/master/lib/sipmath/distribution/sequence.ex#cl-16" class="view-source" rel="help" title="View Source">
        <span class="icon-code" aria-hidden="true"></span>
        <span class="sr-only">View Source</span>
      </a>
@@ -172,35 +164,7 @@
     
       <div class="specs">
         
-          <pre>t() :: %SIPmath.Distribution.Histogram{bin_width: number, histogram: [tuple], number_of_bins: integer, sample_max: number, sample_min: number, samples: [number], seed_value: integer}</pre>
-        
-      </div>
-    
-  </div>
-  <section class="docstring">
-    
-  </section>
-</div>
-<div class="detail" id="t:t_histogram/0">
-  
-  
-  <div class="detail-header">
-    <a href="#t:t_histogram/0" class="detail-link" title="Link to this type">
-      <span class="icon-link" aria-hidden="true"></span>
-      <span class="sr-only">Link to this type</span>
-    </a>
-    <span class="signature">t_histogram()</span>
-    
-      <a href="https://bitbucket.org/jdunity/sipmath/src/master/lib/sipmath/distribution/histogram.ex#cl-23" class="view-source" rel="help" title="View Source">
-       <span class="icon-code" aria-hidden="true"></span>
-       <span class="sr-only">View Source</span>
-     </a>
-    
-    
-    
-      <div class="specs">
-        
-          <pre>t_histogram() :: {number, pos_integer}</pre>
+          <pre>t() :: %SIPmath.Distribution.Sequence{last_value: nil | integer, start_value: integer, step_value: integer}</pre>
         
       </div>
     
@@ -223,17 +187,17 @@
             </a>
             Functions
           </h1>
-          <div class="detail" id="histogram/3">
+          <div class="detail" id="new/2">
   
   
   <div class="detail-header">
-    <a href="#histogram/3" class="detail-link" title="Link to this function">
+    <a href="#new/2" class="detail-link" title="Link to this function">
       <span class="icon-link" aria-hidden="true"></span>
       <span class="sr-only">Link to this function</span>
     </a>
-    <span class="signature">histogram(seed_value, histogram, name)</span>
+    <span class="signature">new(start_value, step_value)</span>
     
-      <a href="https://bitbucket.org/jdunity/sipmath/src/master/lib/sipmath/distribution/histogram.ex#cl-55" class="view-source" rel="help" title="View Source">
+      <a href="https://bitbucket.org/jdunity/sipmath/src/master/lib/sipmath/distribution/sequence.ex#cl-23" class="view-source" rel="help" title="View Source">
        <span class="icon-code" aria-hidden="true"></span>
        <span class="sr-only">View Source</span>
      </a>
@@ -242,7 +206,7 @@
     
       <div class="specs">
         
-          <pre>histogram(seed_value :: integer, histogram :: [tuple], name :: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>) :: SIPmath.State.t</pre>
+          <pre>new(start_value :: integer, step_value :: integer) :: <a href="#t:t/0">t</a></pre>
         
       </div>
     
@@ -251,17 +215,17 @@
     
   </section>
 </div>
-<div class="detail" id="new/2">
+<div class="detail" id="sequence/3">
   
   
   <div class="detail-header">
-    <a href="#new/2" class="detail-link" title="Link to this function">
+    <a href="#sequence/3" class="detail-link" title="Link to this function">
       <span class="icon-link" aria-hidden="true"></span>
       <span class="sr-only">Link to this function</span>
     </a>
-    <span class="signature">new(seed_value, histogram)</span>
+    <span class="signature">sequence(start_value, step_value, name)</span>
     
-      <a href="https://bitbucket.org/jdunity/sipmath/src/master/lib/sipmath/distribution/histogram.ex#cl-41" class="view-source" rel="help" title="View Source">
+      <a href="https://bitbucket.org/jdunity/sipmath/src/master/lib/sipmath/distribution/sequence.ex#cl-29" class="view-source" rel="help" title="View Source">
        <span class="icon-code" aria-hidden="true"></span>
        <span class="sr-only">View Source</span>
      </a>
@@ -270,7 +234,7 @@
     
       <div class="specs">
         
-          <pre>new(seed_value :: integer, histogram :: [tuple]) :: <a href="#t:t/0">t</a></pre>
+          <pre>sequence(start_value :: integer, step_value :: integer, name :: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>) :: SIPmath.State.t</pre>
         
       </div>
     

@@ -6,16 +6,16 @@ defmodule SIPmath.Distribution.Cycle do
 
   alias SIPmath.SIPable
   alias SIPmath.State
- 
+
   defstruct(
-    cycle_values:  nil,
+    cycle_values: nil,
     unused_values: nil
   )
 
   @type t :: %__MODULE__{
-    cycle_values:  nonempty_list(any()),
-    unused_values: nonempty_list(any())
-  }
+          cycle_values: nonempty_list(any()),
+          unused_values: nonempty_list(any())
+        }
 
   @spec new(cycle_values :: nonempty_list(number())) :: t()
   def new(cycle_values = [_h | _t]) when is_list(cycle_values) do
@@ -24,8 +24,8 @@ defmodule SIPmath.Distribution.Cycle do
 
   @spec cycle(cycle_values :: nonempty_list(number()), name :: String.t()) :: State.t()
   def cycle(cycle_values = [_h | _t], name) when is_list(cycle_values) do
-      new(cycle_values)
-      |> SIPmath.new(name)
+    new(cycle_values)
+    |> SIPmath.new(name)
   end
 
   defimpl SIPable do
@@ -33,10 +33,10 @@ defmodule SIPmath.Distribution.Cycle do
 
     @doc """
     """
-    @spec next_value(type_specific_state :: Cycle.t(), pm_index :: integer()) :: {any(), Cycle.t()}
+    @spec next_value(type_specific_state :: Cycle.t(), pm_index :: integer()) ::
+            {any(), Cycle.t()}
     def next_value(type_specific_state = %Cycle{}, _pm_index) do
-      with  %{cycle_values: cycle_values, unused_values: unused_values} = type_specific_state
-      do
+      with %{cycle_values: cycle_values, unused_values: unused_values} = type_specific_state do
         [value | new_unused_values] =
           case unused_values do
             [h | []] -> [h | cycle_values]

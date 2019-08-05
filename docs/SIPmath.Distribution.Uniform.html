@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="dist/app-5b9e160cec.css" />
     
     
-    <script src="dist/sidebar_items-4ab4572f74.js"></script>
+    <script src="dist/sidebar_items-f9caa58d15.js"></script>
     
   </head>
   <body data-type="modules">
@@ -51,6 +51,8 @@
 
     
 
+    
+      <li><a id="protocols-list" href="#full-list">Protocols</a></li>
     
 
     
@@ -98,7 +100,7 @@
     </h2>
     <div class="summary-row">
   <div class="summary-signature">
-    <a href="#t:t_type_specific/0">t_type_specific()</a>
+    <a href="#t:t/0">t()</a>
   </div>
   
 </div>
@@ -113,24 +115,29 @@
     </h2>
     <div class="summary-row">
   <div class="summary-signature">
-    <a href="#create/2">create(name, sv_id)</a>
+    <a href="#new/1">new(seed_value)</a>
   </div>
   
-    <div class="summary-synopsis"></div>
+    <div class="summary-synopsis"><p>Generates numbers between 0 and 1 (standard uniform distribution), where each value is equally probable</p>
+</div>
   
 </div>
 <div class="summary-row">
   <div class="summary-signature">
-    <a href="#create/4">create(name, sv_id, min, max)</a>
+    <a href="#new/3">new(seed_value, min, max)</a>
   </div>
   
 </div>
 <div class="summary-row">
   <div class="summary-signature">
-    <a href="#next_value/1">next_value(state)</a>
+    <a href="#uniform/2">uniform(seed_value, name)</a>
   </div>
   
-    <div class="summary-synopsis"></div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#uniform/4">uniform(seed_value, min, max, name)</a>
+  </div>
   
 </div>
 
@@ -152,17 +159,17 @@
             Types
           </h1>
           <div class="types-list">
-            <div class="detail" id="t:t_type_specific/0">
+            <div class="detail" id="t:t/0">
   
   
   <div class="detail-header">
-    <a href="#t:t_type_specific/0" class="detail-link" title="Link to this type">
+    <a href="#t:t/0" class="detail-link" title="Link to this type">
       <span class="icon-link" aria-hidden="true"></span>
       <span class="sr-only">Link to this type</span>
     </a>
-    <span class="signature">t_type_specific()</span>
+    <span class="signature">t()</span>
     
-      <a href="https://bitbucket.org/jdunity/sipmath/src/master/lib/sipmath/distribution/uniform.ex#cl-9" class="view-source" rel="help" title="View Source">
+      <a href="https://bitbucket.org/jdunity/sipmath/src/master/lib/sipmath/distribution/uniform.ex#cl-16" class="view-source" rel="help" title="View Source">
        <span class="icon-code" aria-hidden="true"></span>
        <span class="sr-only">View Source</span>
      </a>
@@ -171,7 +178,7 @@
     
       <div class="specs">
         
-          <pre>t_type_specific() :: %{min: number, max: number}</pre>
+          <pre>t() :: %SIPmath.Distribution.Uniform{max: number, min: number, seed_value: pos_integer}</pre>
         
       </div>
     
@@ -194,17 +201,17 @@
             </a>
             Functions
           </h1>
-          <div class="detail" id="create/2">
+          <div class="detail" id="new/1">
   
   
   <div class="detail-header">
-    <a href="#create/2" class="detail-link" title="Link to this function">
+    <a href="#new/1" class="detail-link" title="Link to this function">
       <span class="icon-link" aria-hidden="true"></span>
       <span class="sr-only">Link to this function</span>
     </a>
-    <span class="signature">create(name, sv_id)</span>
+    <span class="signature">new(seed_value)</span>
     
-      <a href="https://bitbucket.org/jdunity/sipmath/src/master/lib/sipmath/distribution/uniform.ex#cl-29" class="view-source" rel="help" title="View Source">
+      <a href="https://bitbucket.org/jdunity/sipmath/src/master/lib/sipmath/distribution/uniform.ex#cl-27" class="view-source" rel="help" title="View Source">
        <span class="icon-code" aria-hidden="true"></span>
        <span class="sr-only">View Source</span>
      </a>
@@ -213,7 +220,36 @@
     
       <div class="specs">
         
-          <pre>create(name :: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>, sv_id :: integer) :: SIPmath.State.t</pre>
+          <pre>new(seed_value :: pos_integer) :: <a href="#t:t/0">t</a></pre>
+        
+      </div>
+    
+  </div>
+  <section class="docstring">
+    <p>Generates numbers between 0 and 1 (standard uniform distribution), where each value is equally probable.</p>
+
+  </section>
+</div>
+<div class="detail" id="new/3">
+  
+  
+  <div class="detail-header">
+    <a href="#new/3" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">new(seed_value, min, max)</span>
+    
+      <a href="https://bitbucket.org/jdunity/sipmath/src/master/lib/sipmath/distribution/uniform.ex#cl-32" class="view-source" rel="help" title="View Source">
+       <span class="icon-code" aria-hidden="true"></span>
+       <span class="sr-only">View Source</span>
+     </a>
+    
+    
+    
+      <div class="specs">
+        
+          <pre>new(seed_value :: pos_integer, min :: number, max :: number) :: <a href="#t:t/0">t</a></pre>
         
       </div>
     
@@ -222,17 +258,17 @@
     
   </section>
 </div>
-<div class="detail" id="create/4">
+<div class="detail" id="uniform/2">
   
   
   <div class="detail-header">
-    <a href="#create/4" class="detail-link" title="Link to this function">
+    <a href="#uniform/2" class="detail-link" title="Link to this function">
       <span class="icon-link" aria-hidden="true"></span>
       <span class="sr-only">Link to this function</span>
     </a>
-    <span class="signature">create(name, sv_id, min, max)</span>
+    <span class="signature">uniform(seed_value, name)</span>
     
-      <a href="https://bitbucket.org/jdunity/sipmath/src/master/lib/sipmath/distribution/uniform.ex#cl-36" class="view-source" rel="help" title="View Source">
+      <a href="https://bitbucket.org/jdunity/sipmath/src/master/lib/sipmath/distribution/uniform.ex#cl-37" class="view-source" rel="help" title="View Source">
        <span class="icon-code" aria-hidden="true"></span>
        <span class="sr-only">View Source</span>
      </a>
@@ -241,7 +277,7 @@
     
       <div class="specs">
         
-          <pre>create(name :: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>, sv_id :: integer, min :: number, max :: number) :: SIPmath.State.t</pre>
+          <pre>uniform(seed_value :: pos_integer, name :: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>) :: SIPmath.State.t</pre>
         
       </div>
     
@@ -250,17 +286,17 @@
     
   </section>
 </div>
-<div class="detail" id="next_value/1">
+<div class="detail" id="uniform/4">
   
   
   <div class="detail-header">
-    <a href="#next_value/1" class="detail-link" title="Link to this function">
+    <a href="#uniform/4" class="detail-link" title="Link to this function">
       <span class="icon-link" aria-hidden="true"></span>
       <span class="sr-only">Link to this function</span>
     </a>
-    <span class="signature">next_value(state)</span>
+    <span class="signature">uniform(seed_value, min, max, name)</span>
     
-      <a href="https://bitbucket.org/jdunity/sipmath/src/master/lib/sipmath/distribution/uniform.ex#cl-46" class="view-source" rel="help" title="View Source">
+      <a href="https://bitbucket.org/jdunity/sipmath/src/master/lib/sipmath/distribution/uniform.ex#cl-44" class="view-source" rel="help" title="View Source">
        <span class="icon-code" aria-hidden="true"></span>
        <span class="sr-only">View Source</span>
      </a>
@@ -269,7 +305,7 @@
     
       <div class="specs">
         
-          <pre>next_value(state :: SIPmath.State.t) :: SIPmath.State.t_next_value</pre>
+          <pre>uniform(seed_value :: pos_integer, min :: number, max :: number, name :: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>) :: SIPmath.State.t</pre>
         
       </div>
     

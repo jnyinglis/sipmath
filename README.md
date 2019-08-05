@@ -4,6 +4,10 @@ To get a better understanding of SIPmath, and the inspiration for this library, 
 
 The ability to generate a stream of random numbers taken from a known distribution.
 
+$$
+P(E) = {n \choose k}
+$$
+
 Supports the following distributions:
 
   - Uniform

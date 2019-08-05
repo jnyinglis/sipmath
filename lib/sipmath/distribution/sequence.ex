@@ -14,17 +14,18 @@ defmodule SIPmath.Distribution.Sequence do
   )
 
   @type t :: %__MODULE__{
-    start_value:  integer(),
-    step_value: integer(),
-    last_value: (nil | integer())
-  }
+          start_value: integer(),
+          step_value: integer(),
+          last_value: nil | integer()
+        }
 
   @spec new(start_value :: integer(), step_value :: integer()) :: t()
   def new(start_value, step_value) when is_integer(start_value) and is_integer(step_value) do
     %__MODULE__{start_value: start_value, step_value: step_value, last_value: nil}
   end
 
-  @spec sequence(start_value :: integer(), step_value :: integer(), name :: String.t()) :: State.t()
+  @spec sequence(start_value :: integer(), step_value :: integer(), name :: String.t()) ::
+          State.t()
   def sequence(start_value, step_value, name) do
     new(start_value, step_value)
     |> SIPmath.new(name)
@@ -32,18 +33,20 @@ defmodule SIPmath.Distribution.Sequence do
 
   defimpl SIPable do
     alias SIPmath.Distribution.Sequence
+
     @doc """
     """
-    @spec next_value(type_specific_state :: Sequence.t(), _pm_index :: integer()) :: {integer(), Sequence.t()}
+    @spec next_value(type_specific_state :: Sequence.t(), _pm_index :: integer()) ::
+            {integer(), Sequence.t()}
     def next_value(type_specific_state = %Sequence{}, _pm_index) do
-      with  %{start_value: start_value, step_value: step_value, last_value: last_value} = type_specific_state
-      do
-        value = 
+      with %{start_value: start_value, step_value: step_value, last_value: last_value} =
+             type_specific_state do
+        value =
           case last_value do
             nil -> start_value
             _x -> last_value + step_value
           end
-  
+
         new_type_specific_state = %{type_specific_state | last_value: value}
         {value, new_type_specific_state}
       end

@@ -2,21 +2,24 @@ defmodule Sipmath.Mixfile do
   use Mix.Project
 
   def project do
-    [app: :sipmath,
-     version: "0.1.0",
-     elixir: "~> 1.4",
-     build_embedded: Mix.env == :prod,
-     start_permanent: Mix.env == :prod,
-     deps: deps(),
-     # Docs
-    name: "SIPmath",
-    source_url: "https://bitbucket.org/jdunity/sipmath",
-    homepage_url: "https://jnyinglis.github.io/sipmath",
-    docs: [main: "SIPmath", # The main page in the docs
-#          logo: "path/to/logo.png",
-           extras: ["README.md"],
-           output: "docs"
-          ]
+    [
+      app: :sipmath,
+      version: "0.1.0",
+      elixir: "~> 1.4",
+      build_embedded: Mix.env() == :prod,
+      start_permanent: Mix.env() == :prod,
+      deps: deps(),
+      # Docs
+      name: "SIPmath",
+      source_url: "https://bitbucket.org/jdunity/sipmath",
+      homepage_url: "https://jnyinglis.github.io/sipmath",
+      # The main page in the docs
+      docs: [
+        main: "SIPmath",
+        #          logo: "path/to/logo.png",
+        extras: ["README.md"],
+        output: "docs"
+      ]
     ]
   end
 

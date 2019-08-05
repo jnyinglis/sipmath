@@ -5,11 +5,11 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.16.4">
-    <title>SIPmath – SIPmath v0.1.0</title>
+    <title>SIPmath : Calculating with Uncertainties – SIPmath v0.1.0</title>
     <link rel="stylesheet" href="dist/app-5b9e160cec.css" />
     
     
-    <script src="dist/sidebar_items-4ab4572f74.js"></script>
+    <script src="dist/sidebar_items-f9caa58d15.js"></script>
     
   </head>
   <body data-type="extras">
@@ -52,6 +52,8 @@
     
 
     
+      <li><a id="protocols-list" href="#full-list">Protocols</a></li>
+    
 
     
   </ul>
@@ -64,13 +66,47 @@
     <div id="content" class="content-inner">
 
 
-<h1>SIPmath</h1>
-<p>Implement SIPmath functionality.</p>
-<p>Step 1 is to implement streaming distributions.</p>
-<p>I am taking inspiration (stealing) from Dave Thomas’ Pollution project for streaming and factories.</p>
-<h2 id="installation" class="section-heading">
-  <a href="#installation" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
-  Installation
+<h1>SIPmath : Calculating with Uncertainties</h1>
+<p>To get a better understanding of SIPmath, and the inspiration for this library, check out the Probability Management website at http://probabilitymanagement.org.</p>
+<p>The ability to generate a stream of random numbers taken from a known distribution.</p>
+<p>P(E) = {n \choose k}</p>
+<p>Supports the following distributions:</p>
+<ul>
+<li>Uniform
+</li>
+<li>Normal
+</li>
+<li>Beta
+</li>
+</ul>
+<h2 id="examples" class="section-heading">
+  <a href="#examples" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Examples
+</h2>
+
+<pre><code class="iex elixir">iex&gt; _uniform_dist =
+...&gt;   with  name =&quot;named dist&quot;,
+...&gt;         seed_value = 1
+...&gt;   do
+...&gt;     uniform(seed_value, name)
+...&gt;     |&gt; SIPmath.stream()
+...&gt;     |&gt; Enum.take(1)
+...&gt;   end
+[0.37674033659358525]
+
+iex&gt; _combined_outcome =
+...&gt;   with  uniform_dist_1 = uniform(1, &quot;value1&quot;),
+...&gt;         uniform_dist_2 = uniform(2, &quot;value2&quot;),
+...&gt;         outcome_fun = fn {value1, value2} -&gt; value1 + value2 end,
+...&gt;         trials = 1
+...&gt;   do
+...&gt;     [uniform_dist_1, uniform_dist_2]
+...&gt;     |&gt; SIPmath.zip_map(outcome_fun, trials)
+...&gt;   end
+[0.8014632555662948]</code></pre>
+<h2 id="usage" class="section-heading">
+  <a href="#usage" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Usage
 </h2>
 
 <pre><code class="elixir">def deps do
